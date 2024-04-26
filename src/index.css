@@ -68,3 +68,7 @@ body {
 iframe {
   display: none;
 }
+
+.base-orange {
+  background-color: #FFBB13;
+}
