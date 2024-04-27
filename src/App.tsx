@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import MainRoutes from './MainRoutes';
 import Notification from './components/notification/Notification';
 import { ThemeProvider } from '@material-tailwind/react';
@@ -14,5 +13,4 @@ function App() {
     </ThemeProvider>
   );
 }
-
 export default App;

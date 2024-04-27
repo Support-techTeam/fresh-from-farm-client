@@ -4,6 +4,7 @@ import {
   Button,
   IconButton,
 } from '@material-tailwind/react';
+import BaseDirectories from '../../base_directory/BaseDirectory';
 
 function Product() {
   return (
@@ -90,12 +91,15 @@ export default function ProductOfTheDay() {
   return (
     <div className="bg-white text-gray-600 py-12 w-full overflow-x-hidden">
       <div className=" flex flex-col justify-center p-6 mx-auto lg:flex-row lg:justify-between bg-[#F5F5F5] overflow-x-hidden">
-        <div className="container flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 ">
-          {/* <img
-            src="/images/Product_bg.png"
-            alt=""
-            className="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128"
-          /> */}
+        <div
+          className="container flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 "
+          style={{
+            backgroundImage: `url(${BaseDirectories.IMAGES_DIR}/Product_bg.png)`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+        >
           <Product />
         </div>
         <div className="container flex flex-col justify-center p-6 text-center rounded-sm lg:text-left ">
