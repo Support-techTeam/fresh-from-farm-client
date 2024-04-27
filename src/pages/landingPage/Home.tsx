@@ -6,6 +6,8 @@ import HeroSection from '../../components/home/HeroSection';
 import ProductOfTheDay from '../../components/home/ProductOfDay';
 import CategoryListConponent from '../../components/home/CategoryList';
 import ProductCategoryList from '../../components/home/ProductCategoryList';
+import { ServicesProvided } from '../../components/home/ServicesProvided';
+import { LearnMoreSxction } from '../../components/home/LearnMoreSxction';
 
 const Home = () => {
   return (
@@ -22,6 +24,8 @@ const Home = () => {
         <ProductOfTheDay />
         <CategoryListConponent />
         <ProductCategoryList />
+        <ServicesProvided />
+        <LearnMoreSxction />
       </main>
       <footer>
         <FooterMain />
