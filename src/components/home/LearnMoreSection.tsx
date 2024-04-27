@@ -2,7 +2,7 @@ import React from 'react';
 import BaseDirectories from '../../base_directory/BaseDirectory';
 import { Button } from '@material-tailwind/react';
 
-export const LearnMoreSxction = () => {
+export const LearnMoreSection = () => {
   return (
     <section className="relative min-h-[500px] py-12 my-16 w-full overflow-x-hidden flex justify-center items-center">
       <div
