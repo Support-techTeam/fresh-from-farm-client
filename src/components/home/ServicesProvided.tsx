@@ -68,7 +68,7 @@ export const ServicesProvided = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 place-items-center">
               <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[211px] min-w-[205px] w-full flex flex-col justify-center gap-1 items-center bg-white text-[#61676A] rounded-lg">
                 <img
-                  src={`${BaseDirectories.LOGOS_DIR}/service_1.png`}
+                  src="/logos/service_1.png"
                   alt="service icon"
                   className="service-icon h-[69px] w-[79] object-contain"
                 />
@@ -79,7 +79,7 @@ export const ServicesProvided = () => {
               </div>
               <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[211px] min-w-[205px] w-full flex flex-col justify-center gap-1 items-center bg-white text-[#61676A] rounded-lg">
                 <img
-                  src={`${BaseDirectories.LOGOS_DIR}/service_2.png`}
+                  src="/logos/service_2.png"
                   alt="service icon"
                   className="service-icon h-[69px] w-[79] object-contain"
                 />
@@ -90,7 +90,7 @@ export const ServicesProvided = () => {
               </div>
               <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[211px] min-w-[205px] w-full flex flex-col justify-center gap-1 items-center bg-white text-[#61676A] rounded-lg">
                 <img
-                  src={`${BaseDirectories.LOGOS_DIR}/service_3.png`}
+                  src="/logos/service_3.png"
                   alt="service icon"
                   className="service-icon h-[69px] w-[79] object-contain"
                 />
@@ -101,7 +101,7 @@ export const ServicesProvided = () => {
               </div>
               <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[211px] min-w-[205px] w-full  flex flex-col justify-center gap-1 items-center bg-white text-[#61676A] rounded-lg">
                 <img
-                  src={`${BaseDirectories.LOGOS_DIR}/service_4.png`}
+                  src="/logos/service_4.png"
                   alt="service icon"
                   className="service-icon h-[69px] w-[79] object-contain"
                 />

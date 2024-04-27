@@ -7,7 +7,7 @@ import ProductOfTheDay from '../../components/home/ProductOfDay';
 import CategoryListConponent from '../../components/home/CategoryList';
 import ProductCategoryList from '../../components/home/ProductCategoryList';
 import { ServicesProvided } from '../../components/home/ServicesProvided';
-import { LearnMoreSxction } from '../../components/home/LearnMoreSxction';
+import { LearnMoreSection } from '../../components/home/LearnMoreSection';
 
 const Home = () => {
   return (
@@ -25,7 +25,7 @@ const Home = () => {
         <CategoryListConponent />
         <ProductCategoryList />
         <ServicesProvided />
-        <LearnMoreSxction />
+        <LearnMoreSection />
       </main>
       <footer>
         <FooterMain />
