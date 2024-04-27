@@ -9,7 +9,7 @@ export const ServicesProvided = () => {
       <section
         className="bg-contain bg-center min-h-[500px] bg-[#A4BC46] py-12 w-full overflow-x-hidden flex justify-center items-center"
         style={{
-          backgroundImage: `url(${BaseDirectories.LOGOS_DIR}/pattern_backgroud.png)`,
+          backgroundImage: `url(${BaseDirectories.IMAGES_DIR}/pattern_backgroud.png)`,
         }}
       >
         <div className=" flex flex-col justify-center p-6 mx-auto lg:flex-row lg:justify-between overflow-x-hidden container px-6 m-auto">
@@ -68,9 +68,9 @@ export const ServicesProvided = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 place-items-center">
               <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[211px] min-w-[205px] w-full flex flex-col justify-center gap-1 items-center bg-white text-[#61676A] rounded-lg">
                 <img
-                  src="/logos/service_1.png"
+                  src={`${BaseDirectories.IMAGES_DIR}/services/service_1.png`}
                   alt="service icon"
-                  className="service-icon h-[69px] w-[79] object-contain"
+                  className="service-icon h-[69px] w-[79px] object-contain"
                 />
                 <p className="lead-service-header-text">Free Delivery</p>
                 <p className="lead-service-body-text">
@@ -79,9 +79,9 @@ export const ServicesProvided = () => {
               </div>
               <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[211px] min-w-[205px] w-full flex flex-col justify-center gap-1 items-center bg-white text-[#61676A] rounded-lg">
                 <img
-                  src="/logos/service_2.png"
+                  src={`${BaseDirectories.IMAGES_DIR}/services/service_2.png`}
                   alt="service icon"
-                  className="service-icon h-[69px] w-[79] object-contain"
+                  className="service-icon h-[69px] w-[79px] object-contain"
                 />
                 <p className="lead-service-header-text">Easy And Secure</p>
                 <p className="lead-service-body-text">
@@ -90,9 +90,9 @@ export const ServicesProvided = () => {
               </div>
               <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[211px] min-w-[205px] w-full flex flex-col justify-center gap-1 items-center bg-white text-[#61676A] rounded-lg">
                 <img
-                  src="/logos/service_3.png"
+                  src={`${BaseDirectories.IMAGES_DIR}/services/service_3.png`}
                   alt="service icon"
-                  className="service-icon h-[69px] w-[79] object-contain"
+                  className="service-icon h-[69px] w-[79px] object-contain"
                 />
                 <p className="lead-service-header-text">100% Organic</p>
                 <p className="lead-service-body-text">
@@ -101,9 +101,9 @@ export const ServicesProvided = () => {
               </div>
               <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[211px] min-w-[205px] w-full  flex flex-col justify-center gap-1 items-center bg-white text-[#61676A] rounded-lg">
                 <img
-                  src="/logos/service_4.png"
+                  src={`${BaseDirectories.IMAGES_DIR}/services/service_4.png`}
                   alt="service icon"
-                  className="service-icon h-[69px] w-[79] object-contain"
+                  className="service-icon h-[69px] w-[79px] object-contain"
                 />
                 <p className="lead-service-header-text">24/7 Support</p>
                 <p className="lead-service-body-text">
