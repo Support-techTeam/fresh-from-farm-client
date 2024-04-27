@@ -492,8 +492,8 @@ export default function ProductCategoryList() {
           </Dialog>
         </Transition.Root>
 
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between border-b border-gray-200 pb-6 pt-24">
+        <main className="mx-auto container px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between pb-4 pt-24">
             <div className="flex flex-col text-[#FF750A]">
               <h5 className="lily-script-one-regular">Our Products</h5>
               <h1 className="text-4xl font-extrabold text-[#6e832b] jost-bold">
