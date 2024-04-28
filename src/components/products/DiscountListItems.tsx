@@ -235,102 +235,100 @@ function DiscountedListItems() {
   );
 
   return (
-    <div className="py-6 rounded-lg lg:rounded-br-lg lg:rounded-tr-lg lg:rounded-bl-none lg:rounded-tl-none">
-      <div>
-        <div className="grid grid-cols-1 gap-x-4 gap-y-4 md:grid-cols-2">
-          {paginatedProducts.length > 0 &&
-            paginatedProducts.map((product, index) => (
-              <div
-                key={index}
-                className="border border-white hover:border-[#C0DA71] rounded-lg p-0 min-w-[220px] md:w-[268px] max-w-[268px]"
-              >
-                <a className="flex cursor-pointer bg-white rounded-lg image-container p-1">
-                  <img
-                    alt=""
-                    src={product.imageSrc}
-                    className="h-[60px] w-[66px] min-h-[60px] object-cover object-center group-hover:opacity-75 rounded-sm"
-                  />
+    <div className="py-6 rounded-lg lg:rounded-br-lg lg:rounded-tr-lg lg:rounded-bl-none lg:rounded-tl-none min-w-[220px] sm:w-[400px] md:w-[600px]">
+      <div className="grid grid-cols-1 gap-x-4 gap-y-4 md:grid-cols-2">
+        {paginatedProducts.length > 0 &&
+          paginatedProducts.map((product, index) => (
+            <div
+              key={index}
+              className="border border-white hover:border-[#C0DA71] rounded-lg p-0 mx-3"
+            >
+              <a className="flex cursor-pointer bg-white rounded-lg image-container p-1">
+                <img
+                  alt=""
+                  src={product.imageSrc}
+                  className="h-[60px] w-[66px] min-h-[60px] object-cover object-center group-hover:opacity-75 rounded-sm"
+                />
 
-                  <div className="flex justify-between items-center bg-white rounded-b-lg px-2">
-                    <dl>
-                      <div className="discount-item-name">
-                        <dt className="sr-only">name</dt>
-                        <dd className="font-medium cursor-default">
-                          {product.name}
-                        </dd>
-                      </div>
-                      <div className="">
-                        <dt className="sr-only">Price/Qty</dt>
-                        <dd className="text-sm text-gray-500 cursor-default discount-item-price-per-qty">
-                          {product.price_qty
-                            ? new Intl.NumberFormat('en-US', {
-                                style: 'currency',
-                                currency: 'GBP',
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }).format(Number(product.price_qty))
-                            : new Intl.NumberFormat('en-US', {
-                                style: 'currency',
-                                currency: 'GBP',
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }).format(0)}{' '}
-                          / {product.unit}
-                        </dd>
-                      </div>
-                      <div className="flex gap-4 discount-items-center">
-                        <div>
-                          <dt className="sr-only">Price</dt>
-                          <dd className="text-sm text-gray-500 cursor-default discount-item-price">
-                            {product.discount && product.price
-                              ? Number(product.discount) > 0
-                                ? new Intl.NumberFormat('en-US', {
-                                    style: 'currency',
-                                    currency: 'GBP',
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  }).format(
-                                    Number(product.price) -
-                                      (Number(product.price) *
-                                        Number(product.discount)) /
-                                        100,
-                                  )
-                                : new Intl.NumberFormat('en-US', {
-                                    style: 'currency',
-                                    currency: 'GBP',
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  }).format(Number(product.price))
-                              : new Intl.NumberFormat('en-US', {
-                                  style: 'currency',
-                                  currency: 'GBP',
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }).format(0)}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="sr-only">Original Price</dt>
-                          <dd className="text-xs text-gray-500 line-through cursor-default discount-item-discount">
-                            {product.price &&
-                            product.discount &&
-                            Number(product.discount) > 0
+                <div className="flex justify-between items-center bg-white rounded-b-lg px-2">
+                  <dl>
+                    <div className="discount-item-name">
+                      <dt className="sr-only">name</dt>
+                      <dd className="font-medium cursor-default">
+                        {product.name}
+                      </dd>
+                    </div>
+                    <div className="">
+                      <dt className="sr-only">Price/Qty</dt>
+                      <dd className="text-sm text-gray-500 cursor-default discount-item-price-per-qty">
+                        {product.price_qty
+                          ? new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(Number(product.price_qty))
+                          : new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(0)}{' '}
+                        / {product.unit}
+                      </dd>
+                    </div>
+                    <div className="flex gap-4 discount-items-center">
+                      <div>
+                        <dt className="sr-only">Price</dt>
+                        <dd className="text-sm text-gray-500 cursor-default discount-item-price">
+                          {product.discount && product.price
+                            ? Number(product.discount) > 0
                               ? new Intl.NumberFormat('en-US', {
                                   style: 'currency',
                                   currency: 'GBP',
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
+                                }).format(
+                                  Number(product.price) -
+                                    (Number(product.price) *
+                                      Number(product.discount)) /
+                                      100,
+                                )
+                              : new Intl.NumberFormat('en-US', {
+                                  style: 'currency',
+                                  currency: 'GBP',
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
                                 }).format(Number(product.price))
-                              : null}
-                          </dd>
-                        </div>
+                            : new Intl.NumberFormat('en-US', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }).format(0)}
+                        </dd>
                       </div>
-                    </dl>
-                  </div>
-                </a>
-              </div>
-            ))}
-        </div>
+                      <div>
+                        <dt className="sr-only">Original Price</dt>
+                        <dd className="text-xs text-gray-500 line-through cursor-default discount-item-discount">
+                          {product.price &&
+                          product.discount &&
+                          Number(product.discount) > 0
+                            ? new Intl.NumberFormat('en-US', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }).format(Number(product.price))
+                            : null}
+                        </dd>
+                      </div>
+                    </div>
+                  </dl>
+                </div>
+              </a>
+            </div>
+          ))}
       </div>
     </div>
   );

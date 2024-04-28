@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/home.css';
 import { Helmet } from 'react-helmet-async';
 import { FooterMain } from '../../layouts/Footer';
 import { MainNavBar } from '../../layouts/Header';
