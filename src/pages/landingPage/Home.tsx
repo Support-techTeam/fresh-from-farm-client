@@ -7,10 +7,13 @@ import HeroSection from '../../components/home/HeroSection';
 import ProductOfTheDay from '../../components/home/ProductOfDay';
 import CategoryListConponent from '../../components/home/CategoryList';
 import ProductCategoryList from '../../components/home/ProductCategoryList';
-import { ServicesProvided } from '../../components/home/ServicesProvided';
-import { LearnMoreSection } from '../../components/home/LearnMoreSection';
+import ServicesProvided from '../../components/home/ServicesProvided';
+import LearnMoreSection from '../../components/home/LearnMoreSection';
 import BestSellersList from '../../components/home/BestSellersList';
 import DiscountedOffers from '../../components/home/DiscountedOffers';
+import RecipiesSection from '../../components/home/RecipiesSection';
+import Testimonial from '../../components/home/Testimonial';
+import FaqSection from '../../components/home/FaqSection';
 
 const Home = () => {
   return (
@@ -31,6 +34,9 @@ const Home = () => {
         <LearnMoreSection />
         <BestSellersList />
         <DiscountedOffers />
+        <RecipiesSection />
+        <Testimonial />
+        <FaqSection />
       </main>
       <footer>
         <FooterMain />

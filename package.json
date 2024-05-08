@@ -65,6 +65,7 @@
     ]
   },
   "devDependencies": {
+    "@types/glidejs__glide": "^3.6.5",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "autoprefixer": "^10.4.19",
