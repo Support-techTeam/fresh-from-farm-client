@@ -2,7 +2,7 @@ import React from 'react';
 import BaseDirectories from '../../base_directory/BaseDirectory';
 import { Typography, Button } from '@material-tailwind/react';
 
-export const ServicesProvided = () => {
+const ServicesProvided = () => {
   return (
     <>
       {/*<!-- Component: Two columns even layout --> */}
@@ -119,3 +119,5 @@ export const ServicesProvided = () => {
     </>
   );
 };
+
+export default ServicesProvided;

@@ -6,7 +6,7 @@ export default function DiscountedOffers() {
   return (
     <div className="overflow-hidden bg-white py-24 sm:py-32">
       <div className="mx-auto px-6 lg:px-0">
-        <div className="lg:ml-20 ml-0 mx-auto grid grid-cols-1 gap-x-0 gap-y-0 lg:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div className="xl:ml-52 lg:ml-16 ml-0 mx-auto grid grid-cols-1 gap-x-0 gap-y-0 lg:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <img
             src={`${BaseDirectories.IMAGES_DIR}/discountedSales.png`}
             alt="Product screenshot"
@@ -30,7 +30,7 @@ export default function DiscountedOffers() {
                   Get More Discount
                 </Typography>
                 <DiscountListItems />
-                <div className="flex justify-start gap-2 mt-4">
+                <div className="flex justify-start gap-2 mt-4 md:px-4">
                   <Button
                     size="lg"
                     color="white"
