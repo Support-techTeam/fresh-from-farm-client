@@ -399,7 +399,6 @@ function ArrivalProductList() {
                   <img
                     alt=""
                     src={product.imageSrc}
-                    // className="h-full w-full object-cover object-center group-hover:opacity-75 rounded-t-lg"
                     className="h-full min-h-[208px] w-full object-cover object-center group-hover:opacity-75 rounded-t-lg"
                   />
 

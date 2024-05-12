@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import Glide from '@glidejs/glide';
 import BaseDirectories from '../../base_directory/BaseDirectory';
-import { Typography, Button } from '@material-tailwind/react';
 
 const recipiesList = [
   {
@@ -12,6 +11,7 @@ const recipiesList = [
     image:
       'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158360/f3-client/images/Picture_15_gweqca.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
+    price: 25.0,
   },
   {
     id: 2,
@@ -19,6 +19,7 @@ const recipiesList = [
     image:
       'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158368/f3-client/images/Picture_food_1_n1sepi.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
+    price: 22.7,
   },
   {
     id: 3,
@@ -26,6 +27,7 @@ const recipiesList = [
     image:
       'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158336/f3-client/images/Picture_food_2_sr1agu.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
+    price: 21.4,
   },
   {
     id: 4,
@@ -33,6 +35,7 @@ const recipiesList = [
     image:
       'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158341/f3-client/images/Picture_food_3_zixqfx.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
+    price: 15.8,
   },
   {
     id: 5,
@@ -40,6 +43,7 @@ const recipiesList = [
     image:
       'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158371/f3-client/images/Picture_18_lkucl4.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
+    price: 26.7,
   },
   {
     id: 6,
@@ -47,12 +51,13 @@ const recipiesList = [
     image:
       'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158341/f3-client/images/Picture_food_3_zixqfx.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
+    price: 24.7,
   },
 ];
 const RecipiesSection = () => {
-  const [viewingImage, setViewIngImage] = React.useState(
-    'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158360/f3-client/images/Picture_15_gweqca.png',
-  );
+  const [viewingImage, setViewIngImage] = React.useState(recipiesList[0].image);
+
+  const [recipiePrice, setRecepiePrice] = React.useState(recipiesList[0].price);
   useEffect(() => {
     const slider = new Glide('.recipies_slide', {
       type: 'carousel',
@@ -93,7 +98,10 @@ const RecipiesSection = () => {
                 recipiesList.map((recipie, index) => (
                   <li
                     className="flex m-0 p-2 w-full cursor-default justify-center items-center"
-                    onClick={() => setViewIngImage(recipie.image)}
+                    onClick={() => {
+                      setViewIngImage(recipie.image);
+                      setRecepiePrice(recipie.price);
+                    }}
                   >
                     <div
                       key={index}
@@ -193,6 +201,40 @@ const RecipiesSection = () => {
               alt="image 2"
               className="h-full w-full p-6 object-contain"
             />
+
+            <div
+              className="absolute top-0 right-0 left-44 mx-auto rounded-sm flex flex-col justify-center items-center"
+              style={{
+                backgroundImage: `url(${BaseDirectories.IMAGES_DIR}/price_tag.png)`,
+                backgroundSize: 'contain',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                height: '100px',
+                width: '100px',
+              }}
+            >
+              <div className="group flex justify-center items-center w-full h-8 p-1 hover:rounded-tl-lg">
+                <p className="text-sm recipe-price p-2">
+                  {recipiePrice
+                    ? new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }).format(Number(recipiePrice))
+                    : new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }).format(0)}
+                  <br />
+                  <span className="recipe-tag text-wrap">
+                    /1 set for five plates
+                  </span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

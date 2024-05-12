@@ -14,6 +14,7 @@ import DiscountedOffers from '../../components/home/DiscountedOffers';
 import RecipiesSection from '../../components/home/RecipiesSection';
 import Testimonial from '../../components/home/Testimonial';
 import FaqSection from '../../components/home/FaqSection';
+import BlogSection from '../../components/home/BlogSection';
 
 const Home = () => {
   return (
@@ -37,6 +38,7 @@ const Home = () => {
         <RecipiesSection />
         <Testimonial />
         <FaqSection />
+        <BlogSection />
       </main>
       <footer>
         <FooterMain />

@@ -6,6 +6,40 @@ import {
 } from '@material-tailwind/react';
 import BaseDirectories from '../../base_directory/BaseDirectory';
 
+const products = [
+  {
+    id: 2,
+    name: 'Dried Prawns (100g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '2.30',
+    discount: '5',
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158338/f3-client/images/product_banana_lgmmdt.png',
+    imageAlt: 'Dried Prawns',
+    bestSeller: true,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-27T00:00:00.000Z',
+  },
+
+  {
+    id: 3,
+    name: 'Banana (10 Pcs)',
+    price_qty: '1.20',
+    href: '#',
+    price: '12',
+    discount: '0',
+    unit: 'Pc',
+    imageSrc:
+      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158338/f3-client/images/product_banana_lgmmdt.png',
+    imageAlt: 'Banana',
+    bestSeller: false,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-26T00:00:00.000Z',
+  },
+];
+
 function Product() {
   return (
     <Carousel
@@ -14,6 +48,7 @@ function Product() {
       autoplay={true}
       loop={true}
       autoplayDelay={5000}
+      navigation={({ length }) => length}
       prevArrow={({ handlePrev }) => (
         <IconButton
           variant="text"
@@ -63,27 +98,81 @@ function Product() {
         </IconButton>
       )}
     >
-      <div className="relative h-full w-full flex justify-center items-center pt-6 pl-6">
-        <img
-          src="/images/product_banana.png"
-          alt="image 1"
-          className="h-[80%] w-[80%] object-contain"
-        />
-      </div>
-      <div className="relative h-full w-full flex justify-center items-center pt-6 pl-6">
-        <img
-          src="/images/product_banana.png"
-          alt="image 2"
-          className="h-[80%] w-[80%] object-contain"
-        />
-      </div>
-      <div className="relative h-full w-full flex justify-center items-center pt-6 pl-6">
-        <img
-          src="/images/product_banana.png"
-          alt="image 3"
-          className="h-[80%] w-[80%] object-contain"
-        />
-      </div>
+      {products.map((product, index) => (
+        <div
+          className="relative h-full w-full flex justify-center items-center pt-6 pl-6 overflow-y-hidden"
+          key={index}
+        >
+          <img
+            src={product.imageSrc}
+            alt="image 1"
+            className="h-[80%] w-[80%] object-contain"
+          />
+          <div className="absolute bottom-0 left-34 md:bottom-0 md:left-48 right-0 w-full max-w-[140px] md:max-w-[180px] max-h-[100px] md:max-h-[120px] items-center mx-auto bg-white rounded-lg border-2 px-2 border-[#1F201C1F] overflow-y-hidden">
+            <div className="group">
+              <dl>
+                <div className="my-2 flex flex-col justify-between w-full">
+                  <div>
+                    <div className="my-4 item-name text-[#272E32]">
+                      <dt className="sr-only">name</dt>
+                      <dd className="font-medium cursor-default truncate">
+                        {product.name}
+                      </dd>
+                    </div>
+                    <dt className="sr-only">Price/Qty</dt>
+                    <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                      {product.price_qty
+                        ? new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'GBP',
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          }).format(Number(product.price_qty))
+                        : new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'GBP',
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          }).format(0)}{' '}
+                      / {product.unit}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="sr-only">Price</dt>
+                    <dd className="text-sm text-gray-500 cursor-default item-price my-2">
+                      {product.discount && product.price
+                        ? Number(product.discount) > 0
+                          ? new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(
+                              Number(product.price) -
+                                (Number(product.price) *
+                                  Number(product.discount)) /
+                                  100,
+                            )
+                          : new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(Number(product.price))
+                        : new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'GBP',
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          }).format(0)}
+                    </dd>
+                  </div>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      ))}
     </Carousel>
   );
 }
