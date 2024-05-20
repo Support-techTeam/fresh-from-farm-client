@@ -41,9 +41,9 @@ const Faq = () => {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M19 9l-7 7-7-7"
                   />
                 </svg>
@@ -75,9 +75,9 @@ const Faq = () => {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M19 9l-7 7-7-7"
                   />
                 </svg>
@@ -111,9 +111,9 @@ const Faq = () => {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M19 9l-7 7-7-7"
                   />
                 </svg>
@@ -178,29 +178,29 @@ const ContactForm = () => {
             <div className="w-full lg:w-1/2 px-2">
               <form className="space-y-6">
                 <InputField
-                  name="Name..."
-                  label="Name..."
+                  name="name"
+                  label="Name"
                   placeholder="Name..."
-                  classess="rounded-tl-lg rounded-tr-lg rounded-bl-lg rounded-br-lg h-12"
+                  classess="rounded-full h-12"
                 />
 
                 <InputField
-                  name="Phone number..."
-                  label="Phone number..."
+                  name="phoneNumber"
+                  label="Phone number"
                   placeholder="Phone number..."
-                  classess="rounded-tl-lg rounded-tr-lg rounded-bl-lg rounded-br-lg h-12"
+                  classess="rounded-full h-12"
                 />
                 <InputField
-                  name="Email..."
-                  label="Email..."
+                  name="email"
+                  label="Email"
                   placeholder="Email..."
-                  classess="rounded-tl-lg rounded-tr-lg rounded-bl-lg rounded-br-lg h-12"
+                  classess="rounded-full h-12"
                 />
                 <InputField
-                  name="Address..."
-                  label="Address..."
+                  name="address"
+                  label="Address"
                   placeholder="Address..."
-                  classess="rounded-tl-lg rounded-tr-lg rounded-bl-lg rounded-br-lg h-12"
+                  classess="rounded-full h-12"
                 />
                 <div className="flex justify-start gap-2">
                   <Button

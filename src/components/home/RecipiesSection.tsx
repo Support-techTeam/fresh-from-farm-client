@@ -97,6 +97,7 @@ const RecipiesSection = () => {
                 recipiesList?.length > 0 &&
                 recipiesList.map((recipie, index) => (
                   <li
+                    key={index}
                     className="flex m-0 p-2 w-full cursor-default justify-center items-center"
                     onClick={() => {
                       setViewIngImage(recipie.image);
