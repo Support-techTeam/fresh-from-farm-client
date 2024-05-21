@@ -9,7 +9,7 @@ const recipiesList = [
     id: 1,
     name: 'Egusi Soup',
     image:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158360/f3-client/images/Picture_15_gweqca.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158360/f3-client/images/Picture_15_gweqca.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
     price: 25.0,
   },
@@ -17,7 +17,7 @@ const recipiesList = [
     id: 2,
     name: 'Yam Porridge (Asaro)',
     image:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158368/f3-client/images/Picture_food_1_n1sepi.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158368/f3-client/images/Picture_food_1_n1sepi.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
     price: 22.7,
   },
@@ -25,7 +25,7 @@ const recipiesList = [
     id: 3,
     name: 'Jollof rice and chicken',
     image:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158336/f3-client/images/Picture_food_2_sr1agu.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158336/f3-client/images/Picture_food_2_sr1agu.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
     price: 21.4,
   },
@@ -33,7 +33,7 @@ const recipiesList = [
     id: 4,
     name: 'Moin moin',
     image:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158341/f3-client/images/Picture_food_3_zixqfx.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158341/f3-client/images/Picture_food_3_zixqfx.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
     price: 15.8,
   },
@@ -41,7 +41,7 @@ const recipiesList = [
     id: 5,
     name: 'Crispy Shrimp',
     image:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158371/f3-client/images/Picture_18_lkucl4.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158371/f3-client/images/Picture_18_lkucl4.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
     price: 26.7,
   },
@@ -49,7 +49,7 @@ const recipiesList = [
     id: 6,
     name: 'Crispy Shrimp',
     image:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158341/f3-client/images/Picture_food_3_zixqfx.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158341/f3-client/images/Picture_food_3_zixqfx.png',
     ingridients: ['Crispy Shrimp', 'Salt', 'Pepper', 'Oil', 'Water', 'Beans'],
     price: 24.7,
   },

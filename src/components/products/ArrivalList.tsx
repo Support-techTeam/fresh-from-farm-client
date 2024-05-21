@@ -13,7 +13,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
     bestSeller: false,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -28,7 +28,7 @@ const products = [
     discount: '5',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158372/f3-client/images/Picture_1_mkqpv8.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158372/f3-client/images/Picture_1_mkqpv8.png',
     imageAlt: 'Dried Prawns',
     bestSeller: true,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -44,7 +44,7 @@ const products = [
     discount: '0',
     unit: 'Pc',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158340/f3-client/images/Picture_2_pjyron.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158340/f3-client/images/Picture_2_pjyron.png',
     imageAlt: 'Banana',
     bestSeller: false,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -59,7 +59,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158341/f3-client/images/Picture_3_vr9r17.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158341/f3-client/images/Picture_3_vr9r17.png',
     imageAlt: 'Whole Turkey',
     bestSeller: false,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -74,7 +74,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158347/f3-client/images/Picture_4_jvg2x9.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158347/f3-client/images/Picture_4_jvg2x9.png',
     imageAlt: 'Mushrooms',
     bestSeller: false,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -89,7 +89,7 @@ const products = [
     discount: '0',
     unit: 'Pc',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158349/f3-client/images/Picture_5_njef4f.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158349/f3-client/images/Picture_5_njef4f.png',
     imageAlt: 'Guava fruit',
     bestSeller: false,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -104,7 +104,7 @@ const products = [
     discount: '5',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158356/f3-client/images/Picture_6_quxcdw.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158356/f3-client/images/Picture_6_quxcdw.png',
     imageAlt: 'beef sausage',
     bestSeller: true,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -119,7 +119,7 @@ const products = [
     discount: '0',
     unit: 'Pc',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158344/f3-client/images/product_orange_hnthzs.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158344/f3-client/images/product_orange_hnthzs.png',
     imageAlt: 'Oranges',
     bestSeller: false,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -134,7 +134,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
     bestSeller: false,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -149,7 +149,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
   },
   {
@@ -161,7 +161,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
   },
   {
@@ -173,7 +173,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
   },
   {
@@ -185,7 +185,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
   },
   {
@@ -197,7 +197,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
   },
   {
@@ -209,7 +209,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
   },
   {
@@ -221,7 +221,7 @@ const products = [
     discount: '0',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
   },
 ];

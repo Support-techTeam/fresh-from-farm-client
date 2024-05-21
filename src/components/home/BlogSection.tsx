@@ -14,7 +14,7 @@ const blogPosts = [
     createdAt: '2024-01-20T00:00:00.000Z',
     updatedAt: '2024-01-20T00:00:00.000Z',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158343/f3-client/images/Picture_20_jciof7.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158343/f3-client/images/Picture_20_jciof7.png',
     likes: 4,
     deslikes: 2,
     comments: [
@@ -43,7 +43,7 @@ const blogPosts = [
     createdAt: '2024-01-21T00:00:00.000Z',
     updatedAt: '2024-01-21T00:00:00.000Z',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158336/f3-client/images/Picture_21_tqlvvs.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158336/f3-client/images/Picture_21_tqlvvs.png',
     likes: 4,
     deslikes: 2,
     comments: [],
@@ -53,7 +53,7 @@ const blogPosts = [
     createdAt: '2024-01-22T00:00:00.000Z',
     updatedAt: '2024-01-22T00:00:00.000Z',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158370/f3-client/images/Picture_22_bebc5k.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158370/f3-client/images/Picture_22_bebc5k.png',
     likes: 4,
     deslikes: 2,
     comments: [],
@@ -63,7 +63,7 @@ const blogPosts = [
     createdAt: '2024-01-23T00:00:00.000Z',
     updatedAt: '2024-01-23T00:00:00.000Z',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158372/f3-client/images/Picture_1_mkqpv8.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158372/f3-client/images/Picture_1_mkqpv8.png',
     likes: 4,
     deslikes: 2,
     comments: [],
