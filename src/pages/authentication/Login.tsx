@@ -10,9 +10,11 @@ import CustomButton from '../../components/common/CustomButton';
 const Login = ({
   isOpen,
   toggleModal,
+  toggleRegisterModal,
 }: {
   isOpen: boolean;
   toggleModal: () => void;
+  toggleRegisterModal: () => void;
 }) => {
   const emailInputRef = useRef<HTMLInputElement>(null);
   if (!isOpen) return null;
@@ -38,7 +40,7 @@ const Login = ({
                 name="email"
                 label="Email"
                 placeholder="Email"
-                classess="rounded-tl-full rounded-tr-full  rounded-bl-full rounded-br-full h-12"
+                classess="rounded-full h-12"
                 labelClasses=""
                 required={true}
               />
@@ -104,13 +106,16 @@ const Login = ({
                 />
               </div>
               <div className="flex justify-evenly text-sm font-medium text-gray-500 dark:text-gray-300">
-                Don’t have an account??&nbsp;
-                <a
-                  href="#"
-                  className="text-cyan-700 hover:underline dark:text-cyan-500"
+                Don’t have an account?&nbsp;
+                <p
+                  className="text-cyan-700 hover:underline dark:text-cyan-500 cursor-pointer"
+                  onClick={() => {
+                    toggleModal();
+                    toggleRegisterModal();
+                  }}
                 >
                   Create Account?
-                </a>
+                </p>
               </div>
             </div>
           </div>

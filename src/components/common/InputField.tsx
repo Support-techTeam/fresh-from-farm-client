@@ -33,7 +33,7 @@ const InputField = ({
         (!showPassword ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-2.5 right-4 h-5 w-5 cursor-pointer stroke-slate-400 peer-disabled:cursor-not-allowed"
+            className="absolute top-3 z-20 right-4 h-5 w-5 cursor-pointer stroke-slate-400 peer-disabled:cursor-not-allowed"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -44,8 +44,8 @@ const InputField = ({
               setShowPassword(!showPassword);
             }}
           >
-            <title id="title-4">Show Password</title>
-            <desc id="description-4">View Password when toggled</desc>
+            <title id="title-4">Do Not Show Password</title>
+            <desc id="description-4">Do Not View Password when toggled</desc>
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -55,7 +55,7 @@ const InputField = ({
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-2.5 right-4 h-5 w-5 cursor-pointer stroke-slate-400 peer-disabled:cursor-not-allowed"
+            className="absolute top-3 z-20 right-4 h-5 w-5 cursor-pointer stroke-slate-400 peer-disabled:cursor-not-allowed"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

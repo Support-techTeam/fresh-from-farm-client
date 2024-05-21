@@ -29,6 +29,7 @@ import {
 import { NavListMenu } from '../components/navbar/NavLinkMeny';
 import { ProfileMenu } from '../components/navbar/Avatar';
 import Login from '../pages/authentication/Login';
+import Registration from '../pages/authentication/Registration';
 
 const navListShopItems = [
   {
@@ -159,6 +160,7 @@ function NavList() {
 export function MainNavBar() {
   const [openNav, setOpenNav] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   useEffect(() => {
     window.addEventListener(
@@ -171,9 +173,22 @@ export function MainNavBar() {
     setIsLoginOpen(!isLoginOpen);
   };
 
+  const handleRegistrationModal = () => {
+    setIsRegistrationOpen(!isRegistrationOpen);
+  };
+
   return (
     <Navbar className="max-w-screen-2xl px-4 py-2 mx-2 sm:mx-4 mt-4">
-      <Login isOpen={isLoginOpen} toggleModal={handleLoginModal} />
+      <Login
+        isOpen={isLoginOpen}
+        toggleModal={handleLoginModal}
+        toggleRegisterModal={handleRegistrationModal}
+      />
+      <Registration
+        isOpen={isRegistrationOpen}
+        toggleModal={handleRegistrationModal}
+        toggleLoginModal={handleLoginModal}
+      />
       <div className="flex items-center justify-between text-blue-gray-900">
         <div className="md:ml-10">
           <Link to="/">
@@ -233,7 +248,7 @@ export function MainNavBar() {
           {false ? (
             <ProfileMenu />
           ) : (
-            <IconButton variant="text" color="black">
+            <IconButton variant="text" color="black" onClick={handleLoginModal}>
               <UserIcon className="h-5 w-5" />
             </IconButton>
           )}
