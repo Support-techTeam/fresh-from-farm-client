@@ -16,7 +16,7 @@ const products = [
     discount: '5',
     unit: 'g',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158338/f3-client/images/product_banana_lgmmdt.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158338/f3-client/images/product_banana_lgmmdt.png',
     imageAlt: 'Dried Prawns',
     bestSeller: true,
     createdAt: '2024-04-20T00:00:00.000Z',
@@ -32,7 +32,7 @@ const products = [
     discount: '0',
     unit: 'Pc',
     imageSrc:
-      'https://res.cloudinary.com/dpqbvcvah/image/upload/v1714158338/f3-client/images/product_banana_lgmmdt.png',
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158338/f3-client/images/product_banana_lgmmdt.png',
     imageAlt: 'Banana',
     bestSeller: false,
     createdAt: '2024-04-20T00:00:00.000Z',
