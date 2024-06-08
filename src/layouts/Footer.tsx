@@ -8,7 +8,7 @@ const currentYear = new Date().getFullYear();
 export function FooterMain() {
   return (
     <footer
-      className="bg-[#161A1E] pt-4 text-white min-h-[440px]"
+      className="bg-[#161A1E] pt-4 text-white min-h-[440px] sticky-bottom"
       style={{
         backgroundImage: `url(${BaseDirectories.IMAGES_DIR}/footer_pattern_2.png)`,
       }}

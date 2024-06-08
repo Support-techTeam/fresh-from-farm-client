@@ -343,51 +343,14 @@ function FabRoundedTooltipsTopRight({
 }
 
 function ArrivalProductList() {
-  // const { productStore } = useContext(StoreContext);
-  // const { products } = productStore;
-  // const [productData, setProductData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const startIndex = (currentPage - 1) * pageSize;
 
-  const totalPages = Math.ceil(products.length / pageSize);
-
-  //   const goToPage = (page: any) => {
-  //     setCurrentPage(page);
-  //   };
-
-  //   const nextPage = () => {
-  //     if (currentPage < totalPages - 1) {
-  //       setCurrentPage(currentPage + 1);
-  //     }
-  //   };
-
-  //   const prevPage = () => {
-  //     if (currentPage > 0) {
-  //       setCurrentPage(currentPage - 1);
-  //     }
-  //   };
-
-  const paginatedProducts = products.slice(
-    currentPage * pageSize,
-    (currentPage + 1) * pageSize,
-  );
-
-  // useEffect(() => {
-  //   productStore.getProducts();
-  // }, []);
-
-  // useEffect(() => {
-  //   const strippedProducts = toJS(products).map((item) =>
-  //     stripProduct(item.attributes)
-  //   );
-  //   setProductData(strippedProducts);
-  // }, [products]);
-  // console.log(toJS(products));
+  const paginatedProducts = products.slice(startIndex, startIndex + pageSize);
   return (
     <div className="bg-[#F5F5F5] p-6 rounded-lg lg:rounded-br-lg lg:rounded-tr-lg lg:rounded-bl-none lg:rounded-tl-none">
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-        {/* <h2 className="sr-only">Products</h2> */}
-
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {paginatedProducts.length > 0 &&
             paginatedProducts.map((product, index) => (
