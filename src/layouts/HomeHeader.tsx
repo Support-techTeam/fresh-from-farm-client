@@ -30,7 +30,7 @@ import { NavListMenu } from '../components/navbar/NavLinkMeny';
 import { ProfileMenu } from '../components/navbar/Avatar';
 import Login from '../pages/authentication/Login';
 import Registration from '../pages/authentication/Registration';
-
+// eslint-disable-next-line
 const navListShopItems = [
   {
     title: 'Vegitables',
@@ -69,7 +69,7 @@ const navListShopItems = [
     route: '/contact',
   },
 ];
-
+// eslint-disable-next-line
 const navListProductItems = [
   {
     title: 'Products',
@@ -139,7 +139,7 @@ const navListJoinGroupItems = [
 function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
-      <Typography
+      {/* <Typography
         as="a"
         href="/"
         variant="small"
@@ -147,9 +147,30 @@ function NavList() {
         className="font-medium"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
-      </Typography>
-      <NavListMenu navListItems={navListShopItems} title="Shop" />
-      <NavListMenu navListItems={navListProductItems} title="Products" />
+      </Typography> */}
+      <Link to="/">
+        <Typography variant="small" color="blue-gray" className="font-medium">
+          <ListItem className="flex items-center gap-2 py-2 pr-4">
+            Home
+          </ListItem>
+        </Typography>
+      </Link>
+      <Link to="/shop">
+        <Typography variant="small" color="blue-gray" className="font-medium">
+          <ListItem className="flex items-center gap-2 py-2 pr-4">
+            Shop
+          </ListItem>
+        </Typography>
+      </Link>
+      <Link to="/shop/product/">
+        <Typography variant="small" color="blue-gray" className="font-medium">
+          <ListItem className="flex items-center gap-2 py-2 pr-4">
+            Products
+          </ListItem>
+        </Typography>
+      </Link>
+      {/* <NavListMenu navListItems={navListShopItems} title="Shop" /> */}
+      {/* <NavListMenu navListItems={navListProductItems} title="Products" /> */}
       <NavListMenu navListItems={navListBlogItems} title="Blog" />
       <NavListMenu navListItems={navListPagesItems} title="Pages" />
       <NavListMenu navListItems={navListJoinGroupItems} title="Join a Group" />
@@ -157,7 +178,7 @@ function NavList() {
   );
 }
 
-export function MainNavBar() {
+export function HomeHeader() {
   const [openNav, setOpenNav] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
@@ -178,89 +199,103 @@ export function MainNavBar() {
   };
 
   return (
-    <Navbar className="max-w-screen-2xl px-4 py-2 mx-2 sm:mx-4 mt-4">
-      <Login
-        isOpen={isLoginOpen}
-        toggleModal={handleLoginModal}
-        toggleRegisterModal={handleRegistrationModal}
-      />
-      <Registration
-        isOpen={isRegistrationOpen}
-        toggleModal={handleRegistrationModal}
-        toggleLoginModal={handleLoginModal}
-      />
-      <div className="flex items-center justify-between text-blue-gray-900">
-        <div className="md:ml-10">
-          <Link to="/">
-            <img
-              src="/logos/Logo.png"
-              alt="F23-Logo"
-              width={50.35}
-              height={46.57}
-              className="mr-4 md:mr-1 cursor-pointer py-1.5 lg:ml-2 md:ml-6"
-            />
-          </Link>
-        </div>
+    <header className="absolute w-full flex justify-center items-center mx-auto z-50">
+      <Navbar className="max-w-screen-2xl px-4 py-2 mx-2 sm:mx-4 mt-4">
+        <Login
+          isOpen={isLoginOpen}
+          toggleModal={handleLoginModal}
+          toggleRegisterModal={handleRegistrationModal}
+        />
+        <Registration
+          isOpen={isRegistrationOpen}
+          toggleModal={handleRegistrationModal}
+          toggleLoginModal={handleLoginModal}
+        />
+        <div className="flex items-center justify-between text-blue-gray-900">
+          <div className="md:ml-10">
+            <Link to="/">
+              <img
+                src="/logos/Logo.png"
+                alt="F23-Logo"
+                width={50.35}
+                height={46.57}
+                className="mr-4 md:mr-1 cursor-pointer py-1.5 lg:ml-2 md:ml-6"
+              />
+            </Link>
+          </div>
 
-        <div className="hidden lg:block">
+          <div className="hidden lg:block">
+            <NavList />
+          </div>
+          <div className="hidden gap-2 lg:flex">
+            <IconButton variant="text" color="black">
+              <MagnifyingGlassIcon className="h-5 w-5" />
+            </IconButton>
+
+            {false ? (
+              <ProfileMenu />
+            ) : (
+              <IconButton
+                variant="text"
+                color="black"
+                onClick={handleLoginModal}
+              >
+                <UserIcon className="h-5 w-5" />
+              </IconButton>
+            )}
+
+            <IconButton variant="text" color="black">
+              <HeartIcon className="h-5 w-5" />
+            </IconButton>
+            <Link to="/cart">
+              <IconButton variant="text" color="black">
+                <ShoppingCartIcon className="h-5 w-5" />
+              </IconButton>
+            </Link>
+          </div>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            className="lg:hidden"
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            )}
+          </IconButton>
+        </div>
+        <Collapse open={openNav}>
           <NavList />
-        </div>
-        <div className="hidden gap-2 lg:flex">
-          <IconButton variant="text" color="black">
-            <MagnifyingGlassIcon className="h-5 w-5" />
-          </IconButton>
-
-          {false ? (
-            <ProfileMenu />
-          ) : (
-            <IconButton variant="text" color="black" onClick={handleLoginModal}>
-              <UserIcon className="h-5 w-5" />
+          <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
+            <IconButton variant="text" color="black">
+              <MagnifyingGlassIcon className="h-5 w-5" />
             </IconButton>
-          )}
 
-          <IconButton variant="text" color="black">
-            <HeartIcon className="h-5 w-5" />
-          </IconButton>
-          <IconButton variant="text" color="black">
-            <ShoppingCartIcon className="h-5 w-5" />
-          </IconButton>
-        </div>
-        <IconButton
-          variant="text"
-          color="blue-gray"
-          className="lg:hidden"
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-          )}
-        </IconButton>
-      </div>
-      <Collapse open={openNav}>
-        <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <IconButton variant="text" color="black">
-            <MagnifyingGlassIcon className="h-5 w-5" />
-          </IconButton>
+            {false ? (
+              <ProfileMenu />
+            ) : (
+              <IconButton
+                variant="text"
+                color="black"
+                onClick={handleLoginModal}
+              >
+                <UserIcon className="h-5 w-5" />
+              </IconButton>
+            )}
 
-          {false ? (
-            <ProfileMenu />
-          ) : (
-            <IconButton variant="text" color="black" onClick={handleLoginModal}>
-              <UserIcon className="h-5 w-5" />
+            <IconButton variant="text" color="black">
+              <HeartIcon className="h-5 w-5" />
             </IconButton>
-          )}
-
-          <IconButton variant="text" color="black">
-            <HeartIcon className="h-5 w-5" />
-          </IconButton>
-          <IconButton variant="text" color="black">
-            <ShoppingCartIcon className="h-5 w-5" />
-          </IconButton>
-        </div>
-      </Collapse>
-    </Navbar>
+            <Link to="/cart">
+              <IconButton variant="text" color="black">
+                <ShoppingCartIcon className="h-5 w-5" />
+              </IconButton>
+            </Link>
+          </div>
+        </Collapse>
+      </Navbar>
+    </header>
   );
 }

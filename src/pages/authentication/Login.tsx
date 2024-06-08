@@ -6,6 +6,7 @@ import AppleIcon from '../../components/icons/apple';
 import GoogleIcon from '../../components/icons/google';
 import FacebookIcon from '../../components/icons/facebook';
 import CustomButton from '../../components/common/CustomButton';
+import '../../styles/authentication.css';
 
 const Login = ({
   isOpen,
@@ -31,7 +32,7 @@ const Login = ({
         <Modal.Header />
         <Modal.Body>
           <div className="space-y-6">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center header-text">
               Login
             </h1>
             <div className="relative my-6">
@@ -78,7 +79,11 @@ const Login = ({
               />
             </div>
             <div className="flex justify-center flex-col items-center">
-              <p>- Or sign in with -</p>
+              <div className="flex items-center justify-center gap-1 w-full my-4">
+                <hr className="w-[4%] text-gray-600 font-bold border-[1px] border-gray-400" />
+                <p>Or sign in with</p>
+                <hr className="w-[4%] text-gray-600 font-bold border-[1px] border-gray-400" />
+              </div>
               <div className="flex justify-evenly flex-col md:flex-row my-4">
                 <CustomButton
                   leftIcon={<GoogleIcon />}

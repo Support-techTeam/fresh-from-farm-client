@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/authentication.css';
 import { Modal } from 'flowbite-react';
 import { useRef } from 'react';
 import InputField from '../../components/common/InputField';
@@ -31,7 +32,7 @@ const Registration = ({
         <Modal.Header />
         <Modal.Body>
           <div className="space-y-6">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center header-text">
               Create Account
             </h1>
             <div className="relative my-6">
@@ -56,7 +57,7 @@ const Registration = ({
                 required={true}
               />
             </div>
-            <div className="relative my-6">
+            {/* <div className="relative my-6">
               <InputField
                 type="tel"
                 name="phoneNumber"
@@ -66,7 +67,7 @@ const Registration = ({
                 labelClasses=""
                 required={true}
               />
-            </div>
+            </div> */}
             <div className="relative my-6">
               <InputField
                 type="email"
@@ -99,7 +100,11 @@ const Registration = ({
               />
             </div>
             <div className="flex justify-center flex-col items-center">
-              <p>- Or Sign Up with -</p>
+              <div className="flex items-center justify-center gap-1 w-full my-4">
+                <hr className="w-[4%] text-gray-600 font-bold border-[1px] border-gray-400" />
+                <p>Or Sign Up with</p>
+                <hr className="w-[4%] text-gray-600 font-bold border-[1px] border-gray-400" />
+              </div>
               <div className="flex justify-evenly flex-col md:flex-row my-4">
                 <CustomButton
                   leftIcon={<GoogleIcon />}

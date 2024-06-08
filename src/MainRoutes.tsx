@@ -1,18 +1,18 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import ScrollToTop from './components/scrollToTop';
-import Home from './pages/landingPage/Home';
+import HomeRoutes from './layouts/HomeRoutes';
+import GeneralRoutes from './layouts/GeneralRoutes';
 
 const MainRoutes = () => {
   return (
-    <div>
-      <Router>
-        <ScrollToTop>
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </ScrollToTop>
-      </Router>
-    </div>
+    <Router>
+      <ScrollToTop>
+        <main>
+          <HomeRoutes />
+          <GeneralRoutes />
+        </main>
+      </ScrollToTop>
+    </Router>
   );
 };
 
