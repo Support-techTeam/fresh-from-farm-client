@@ -1,5 +1,5 @@
 .item-name {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 12.61px;
   font-weight: 600;
   line-height: 18.91px;
@@ -8,7 +8,7 @@
 }
 
 .item-price-per-qty {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 11.03px;
   font-weight: 400;
   line-height: 2.76px;
@@ -16,7 +16,7 @@
   text-align: left;
 }
 .item-price {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 20.49px;
   font-weight: 600;
   line-height: 28.37px;
@@ -25,7 +25,7 @@
 }
 
 .item-discount {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 12.61px;
   font-weight: 500;
   line-height: 18.91px;
@@ -42,7 +42,7 @@
 }
 
 .service-body-text {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 15.75px;
   font-weight: 400;
   line-height: 22.05px;
@@ -51,7 +51,7 @@
 }
 
 .lead-service-header-text {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 15.75px;
   font-weight: 500;
   line-height: 22.05px;
@@ -60,7 +60,7 @@
 }
 
 .lead-service-body-text {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 12.6px;
   font-weight: 400;
   line-height: 18.9px;
@@ -85,7 +85,7 @@
 }
 
 .info-group-buy-body {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   /* font-size: 48px; */
   font-weight: 600;
   /* line-height: 52px; */
@@ -103,7 +103,7 @@
 }
 
 .all-products-link {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   /* font-size: 20px; */
   font-weight: 400;
   line-height: 32px;
@@ -112,7 +112,7 @@
 }
 
 .discount-tooltip {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   /* font-size: 9.46px; */
   color: #ffffff;
   font-weight: 600;
@@ -126,7 +126,7 @@
 }
 
 .discount-item-name {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 12.61px;
   font-weight: 600;
   line-height: 18.91px;
@@ -135,7 +135,7 @@
 }
 
 .discount-item-price-per-qty {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 11.03px;
   font-weight: 400;
   line-height: 15.76px;
@@ -143,7 +143,7 @@
   text-align: left;
 }
 .discount-item-price {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 15.76px;
   font-weight: 600;
   line-height: 18.91px;
@@ -153,7 +153,7 @@
 }
 
 .discount-item-discount {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 11.03px;
   font-weight: 400;
   line-height: 15.76px;
@@ -162,7 +162,7 @@
 }
 
 .footer-leading {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   /* font-size: 15.76px; */
   font-weight: 600;
   line-height: 18.91px;
@@ -171,7 +171,7 @@
 }
 
 .footer-text {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   /* font-size: 12.61px; */
   font-weight: 500;
   line-height: 18.91px;
@@ -180,7 +180,7 @@
 }
 
 .copyright-text {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 12.61px;
   font-weight: 400;
   line-height: 18.91px;
@@ -188,7 +188,7 @@
 }
 
 .blog-title {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 15.76px;
   font-weight: 600;
   line-height: 18.91px;
@@ -206,14 +206,14 @@
 }
 
 .recipe-price {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 20.52px;
   font-weight: 700;
   text-align: center;
 }
 
 .recipe-tag {
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
   font-size: 11.01px;
   font-weight: 400;
   text-align: center;

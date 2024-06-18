@@ -26,7 +26,7 @@ import {
   TagIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/solid';
-import { NavListMenu } from '../components/navbar/NavLinkMeny';
+import { NavListMenu } from '../components/navbar/NavLinkMany';
 import { ProfileMenu } from '../components/navbar/Avatar';
 import Login from '../pages/authentication/Login';
 import Registration from '../pages/authentication/Registration';

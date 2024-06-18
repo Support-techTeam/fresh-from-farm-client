@@ -6,7 +6,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <HomeHeader />
-      <main>{children}</main>
+      <main className="overflow-x-hidden">{children}</main>
       <FooterMain />
     </>
   );
