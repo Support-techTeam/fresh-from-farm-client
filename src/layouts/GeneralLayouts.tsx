@@ -6,7 +6,7 @@ const GeneralLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <GeneralHeader />
-      <main className="">{children}</main>
+      <main className="overflow-x-hidden">{children}</main>
       <FooterMain />
     </>
   );
