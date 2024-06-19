@@ -4,7 +4,6 @@ import {
   Breadcrumbs,
   Button,
   IconButton,
-  Rating,
   Typography,
 } from '@material-tailwind/react';
 import { HeartIcon } from '@heroicons/react/24/outline';
