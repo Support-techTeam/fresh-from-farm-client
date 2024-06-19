@@ -68,7 +68,7 @@ const ProductDetails = () => {
           }}
         >
           <h1 className="breadcrumb-h1">Shop</h1>
-          <Breadcrumbs>
+          <Breadcrumbs className="flex flex-wrap">
             <Link to="/" className="opacity-60">
               Home
             </Link>
@@ -76,7 +76,7 @@ const ProductDetails = () => {
               Shop
             </Link>
             <Link to="/shop/product" className="opacity-60">
-              Tesco Green Seedless Grapes ( 500g)
+              {product.name}
             </Link>
           </Breadcrumbs>
         </div>
