@@ -1043,15 +1043,15 @@ const ShopMain = () => {
     <div className="">
       <Helmet>
         <title>Shop | Fresh From Farm Shopping Page!</title>
-        <link rel="canonical" href={window.location.href} />
+        <link rel="canonical" href={window?.location?.href} />
       </Helmet>
       <main className="flex min-h-screen w-screen flex-col bg-white mt-0">
         <div
           className="flex flex-col w-screen items-center justify-center h-[189px]"
           style={{
             backgroundImage: `url(${BaseDirectories.IMAGES_DIR}/page_banner.png)`,
-            backgroundSize: `${window.innerWidth >= 960 ? 'cover' : 'auto'}`,
-            backgroundPosition: `${window.innerWidth >= 960 ? 'center' : ''}`,
+            backgroundSize: `${window?.innerWidth >= 960 ? 'cover' : 'auto'}`,
+            backgroundPosition: `${window?.innerWidth >= 960 ? 'center' : ''}`,
             backgroundRepeat: 'no-repeat',
           }}
         >

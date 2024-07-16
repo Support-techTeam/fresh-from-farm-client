@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   Breadcrumbs,
@@ -12,6 +12,7 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import { Link, useLocation } from 'react-router-dom';
 import BaseDirectories from '../../base_directory/BaseDirectory';
 import moment from 'moment';
+import { Tabs } from 'flowbite-react';
 
 function FabRoundedTooltipsTopRight({
   discount,
@@ -51,6 +52,52 @@ function FabRoundedTooltipsTopRight({
 const ProductDetails = () => {
   const location = useLocation();
   const product = location.state || {};
+  const [open, setOpen] = useState('description');
+
+  const handleTabOpen = (tabCategory: any) => {
+    setOpen(tabCategory);
+  };
+
+  const TabContentDescription = ({
+    open,
+    tabCategory,
+    details,
+    prodImg,
+  }: any) => {
+    return (
+      <div>
+        <div
+          className={`p-6 text-base leading-relaxed text-body-color justify-center items-center flex flex-col gap-4 ${
+            open === tabCategory ? 'block' : 'hidden'
+          } `}
+        >
+          {details}
+          {prodImg && (
+            <img
+              alt=""
+              src={prodImg}
+              className="w-[60%] h-[60%] object-contain object-center md:px-4 mb-4 rounded-xl"
+            />
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const TabContentReview = ({ open, tabCategory, details }: any) => {
+    return (
+      <div>
+        <div
+          className={`p-6 text-base leading-relaxed text-body-color dark:text-dark-6 ${
+            open === tabCategory ? 'block' : 'hidden'
+          } `}
+        >
+          {details}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="">
       <Helmet>
@@ -261,6 +308,51 @@ const ProductDetails = () => {
             </div>
           </div>
         </section>
+        <>
+          <section className="mx-auto w-full px-8">
+            <div className="mx-auto container ">
+              <div className="-mx-4 flex flex-wrap">
+                <div className="w-full px-4">
+                  <div className="mb-14 w-full">
+                    <div className="flex flex-col justify-evenly items-center gap-4 text-center rounded-lg border border-[#E4E4E4] px-4 py-3 dark:border-dark-3 sm:flex-row">
+                      <a
+                        onClick={() => handleTabOpen('description')}
+                        className={`cursor-pointer rounded-md px-4 py-3 text-sm font-medium md:text-base lg:px-6 w-full text-gray-500 ${
+                          open === 'description'
+                            ? 'bg-[#BFC831] text-white'
+                            : 'text-body-color hover:bg-white hover:text-[#BFC831]'
+                        }`}
+                      >
+                        DESCRIPTION
+                      </a>
+                      <a
+                        onClick={() => handleTabOpen('reviews')}
+                        className={`cursor-pointer rounded-md px-4 py-3 text-sm font-medium md:text-base lg:px-6 w-full text-gray-500  ${
+                          open === 'reviews'
+                            ? 'bg-[#BFC831] text-white'
+                            : 'text-body-color hover:bg-white hover:text-[#BFC831]'
+                        }`}
+                      >
+                        REVIEWS
+                      </a>
+                    </div>
+                    <TabContentDescription
+                      details={product.description}
+                      prodImg={product.imageSrc}
+                      tabCategory="description"
+                      open={open}
+                    />
+                    <TabContentReview
+                      details=" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia nisi, doloribus nulla cumque molestias corporis eaque harum vero! "
+                      tabCategory="reviews"
+                      open={open}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
       </main>
     </div>
   );
