@@ -1,3 +1,4 @@
+import React from 'react';
 import { FC, useEffect } from 'react';
 import { useLocation } from 'react-router';
 
@@ -8,7 +9,7 @@ type Props = {
 const ScrollToTop: FC<Props> = (props) => {
   const location = useLocation();
   useEffect(() => {
-    (window as any).scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [location]);
 
   return <>{props.children}</>;
