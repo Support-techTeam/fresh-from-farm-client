@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import '../../styles/shop.css';
 import { Breadcrumbs, Slider } from '@material-tailwind/react';
@@ -9,6 +9,7 @@ import BaseDirectories from '../../base_directory/BaseDirectory';
 import { Fragment, useState } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { AiOutlineClose } from 'react-icons/ai';
 import {
   ChevronDownIcon,
   ChevronUpIcon,
@@ -29,7 +30,9 @@ import {
   ThreeColGrid,
   VegeSidebar,
 } from '../../components/icons/sidebar';
-import { RangeSlider } from 'flowbite-react';
+import RangeSlider from '../../components/common/RangeSlider';
+// import { RangeSlider } from 'flowbite-react';
+
 const products = [
   {
     id: 1,
@@ -43,6 +46,7 @@ const products = [
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
     bestSeller: false,
+    specialOffer: true,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-24T00:00:00.000Z',
     size: '300g',
@@ -63,7 +67,8 @@ const products = [
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158372/f3-client/images/Picture_1_mkqpv8.png',
     imageAlt: 'Dried Prawns',
-    bestSeller: true,
+    bestSeller: false,
+    specialOffer: true,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-27T00:00:00.000Z',
     size: '100g',
@@ -85,7 +90,8 @@ const products = [
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158340/f3-client/images/Picture_2_pjyron.png',
     imageAlt: 'Banana',
-    bestSeller: false,
+    bestSeller: true,
+    specialOffer: true,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-26T00:00:00.000Z',
     size: '10 Pcs',
@@ -106,13 +112,14 @@ const products = [
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158341/f3-client/images/Picture_3_vr9r17.png',
     imageAlt: 'Whole Turkey',
-    bestSeller: false,
+    bestSeller: true,
+    specialOffer: false,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-25T00:00:00.000Z',
     size: '200g',
     origin: 'London',
     product_code: 'AE-004',
-    category: 'Meat',
+    category: 'Fresh Meat',
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -127,7 +134,8 @@ const products = [
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158347/f3-client/images/Picture_4_jvg2x9.png',
     imageAlt: 'Mushrooms',
-    bestSeller: false,
+    bestSeller: true,
+    specialOffer: false,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-27T00:00:00.000Z',
     size: '400g',
@@ -149,6 +157,7 @@ const products = [
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158349/f3-client/images/Picture_5_njef4f.png',
     imageAlt: 'Guava fruit',
     bestSeller: false,
+    specialOffer: false,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-27T00:00:00.000Z',
     size: '10 Pcs',
@@ -169,13 +178,14 @@ const products = [
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158356/f3-client/images/Picture_6_quxcdw.png',
     imageAlt: 'beef sausage',
-    bestSeller: true,
+    bestSeller: false,
+    specialOffer: false,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-27T00:00:00.000Z',
     size: '400g',
     origin: 'London',
     product_code: 'AE-007',
-    category: 'Meat',
+    category: 'Fresh Meat',
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -191,6 +201,7 @@ const products = [
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158344/f3-client/images/product_orange_hnthzs.png',
     imageAlt: 'Oranges',
     bestSeller: false,
+    specialOffer: false,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-27T00:00:00.000Z',
     size: '10 Pcs',
@@ -207,11 +218,13 @@ const products = [
     href: '#',
     price: '48',
     discount: '0',
+    category: 'Vegetable',
     unit: 'g',
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
     bestSeller: false,
+    specialOffer: false,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-27T00:00:00.000Z',
     description:
@@ -224,10 +237,13 @@ const products = [
     href: '#',
     price: '48',
     discount: '0',
+    category: 'Vegetables',
     unit: 'g',
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -238,10 +254,13 @@ const products = [
     href: '#',
     price: '48',
     discount: '0',
+    category: 'Vegetables',
     unit: 'g',
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -252,10 +271,13 @@ const products = [
     href: '#',
     price: '48',
     discount: '0',
+    category: 'Vegetables',
     unit: 'g',
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -266,10 +288,13 @@ const products = [
     href: '#',
     price: '48',
     discount: '0',
+    category: 'Vegetables',
     unit: 'g',
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -280,10 +305,13 @@ const products = [
     href: '#',
     price: '48',
     discount: '0',
+    category: 'Vegetables',
     unit: 'g',
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -294,10 +322,13 @@ const products = [
     href: '#',
     price: '48',
     discount: '0',
+    category: 'Vegetables',
     unit: 'g',
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -308,10 +339,13 @@ const products = [
     href: '#',
     price: '48',
     discount: '0',
+    category: 'Vegetables',
     unit: 'g',
     imageSrc:
       'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
     imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -319,22 +353,30 @@ const products = [
 
 const pageSize = 12;
 
-const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
-];
 const subCategories = [
   { name: 'Vegetables', href: '#' },
   { name: 'Fruits', href: '#' },
   { name: 'Fresh Meat', href: '#' },
   { name: 'Ocean Foods', href: '#' },
   { name: 'Milk & Cream', href: '#' },
-  { name: 'Set Food', href: '#' },
+  { name: 'Set Foods', href: '#' },
   { name: 'Eggs', href: '#' },
 ];
+const SidebarComponents = {
+  Vegetables: VegeSidebar,
+  Vegetable: VegeSidebar,
+  Fruits: FruitSidebar,
+  Fruit: FruitSidebar,
+  'Fresh Meat': MeatSidebar,
+  'Fresh Meats': MeatSidebar,
+  'Ocean Foods': OceanSidebar,
+  'Ocean Food': OceanSidebar,
+  'Milk & Cream': MilkSidebar,
+  'Set Foods': MilkSidebar,
+  'Set Food': SetSidebar,
+  Eggs: EggSidebar,
+  Egg: EggSidebar,
+};
 const filters = [
   {
     id: 'Price',
@@ -342,15 +384,9 @@ const filters = [
   },
 ];
 
-const arrivalCategories = [
-  { name: 'New Arrivals', href: '#' },
-  { name: 'Best Sellers', href: '#' },
-  { name: 'Special Offers', href: '#' },
-];
-// eslint-disable-next-line
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ');
-}
+const minValue = 0;
+const maxValue = 10000;
+
 function FabRoundedTooltipsRight() {
   return (
     <>
@@ -447,11 +483,150 @@ function FabRoundedTooltipsTopRight({
 const MainSection = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [isActive, setIsActive] = useState('all');
-  const [value, setValue] = useState(2000); // Initial value
+  const [value, setValue] = useState([0, 2000]);
+  const [layout, setLayout] = useState('three-column');
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedArrivalStatus, setSelectedArrivalStatus] = useState([]);
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const startIndex = (currentPage - 1) * pageSize;
+  const [filteredProducts, setFilteredProducts] = useState(products); // State to hold filtered products
 
-  const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(evt.target.value));
-    console.debug(evt.target.value);
+  useEffect(() => {
+    filterProducts(value); // Initial filter products based on initial value (price range)
+  }, [value, currentPage, products, selectedCategories, selectedArrivalStatus]);
+
+  // Handle category filter change
+  const handleCategoryChange = (categoryName: string) => {
+    const category = categoryName.toLowerCase();
+    if (category === 'All') {
+      setSelectedCategories([]);
+      setActiveFilters([]);
+    } else {
+      const existingCategory = selectedCategories.find(
+        (checkCategory) => checkCategory.toLowerCase() === category,
+      );
+      if (!existingCategory) {
+        setSelectedCategories([...selectedCategories, category]);
+        setActiveFilters([...activeFilters, category]);
+      }
+    }
+  };
+
+  // Handle arrival status filter change
+  const handleArrivalStatusChange = (statusName) => {
+    setSelectedArrivalStatus((prevArrivalStatus) => {
+      const statusIndex = prevArrivalStatus.indexOf(statusName);
+      const newArrivalStatus =
+        statusIndex === -1
+          ? [...prevArrivalStatus, statusName]
+          : prevArrivalStatus.filter((status) => status !== statusName);
+
+      // Update active filters
+      const newActiveFilters =
+        newArrivalStatus.length === 0
+          ? activeFilters.filter(
+              (filter) =>
+                !['newarrival', 'bestsellers', 'specialoffers'].includes(
+                  filter,
+                ),
+            )
+          : [
+              ...newArrivalStatus,
+              ...activeFilters.filter(
+                (filter) => !newArrivalStatus.includes(filter),
+              ),
+            ];
+
+      setActiveFilters(newActiveFilters);
+
+      return newArrivalStatus;
+    });
+  };
+
+  // Remove category filter
+  // Remove filter from categories and arrival status
+  const removeFilter = (filter) => {
+    // Handle removal of category filters
+    if (selectedCategories.includes(filter)) {
+      setSelectedCategories(
+        selectedCategories.filter((checkCategory) => checkCategory !== filter),
+      );
+    }
+
+    // Handle removal of arrival status filters
+    if (['newarrival', 'bestsellers', 'specialoffers'].includes(filter)) {
+      setSelectedArrivalStatus(
+        selectedArrivalStatus.filter((status) => status !== filter),
+      );
+    }
+
+    // Update active filters
+    setActiveFilters(activeFilters.filter((f) => f !== filter));
+  };
+
+  // Handle price filter
+  const handlePriceChange = (newValues: any) => {
+    let [newMinValue, newMaxValue] = newValues;
+
+    // Ensure max value is not lower than min value
+    if (newMinValue > value[1]) {
+      newMinValue = value[1];
+    }
+
+    // Ensure min value is not higher than max value
+    if (newMaxValue < value[0]) {
+      newMaxValue = value[0];
+    }
+
+    setValue([newMinValue, newMaxValue]);
+  };
+
+  const filterProducts = (range) => {
+    const filtered = products.filter((product) => {
+      const price = Number(product.price);
+      const isInPriceRange = price >= range[0] && price <= range[1];
+      const isInCategory =
+        selectedCategories.length === 0 ||
+        selectedCategories.includes(product.category.toLowerCase());
+      // Check if product matches any selected arrival statuses
+      const isInProductStatus =
+        selectedArrivalStatus.length === 0 ||
+        selectedArrivalStatus.some((status) => {
+          switch (status) {
+            case 'newarrival':
+              return isNewlyAddedOrUpdated(product.updatedAt);
+            case 'bestsellers':
+              return product.bestSeller;
+            case 'specialoffers':
+              return product.specialOffer;
+            default:
+              return false;
+          }
+        });
+
+      return isInPriceRange && isInCategory && isInProductStatus;
+    });
+    setFilteredProducts(filtered);
+  };
+
+  // Function to determine if a product is a new arrival based on updatedAt timestamp
+  const isNewlyAddedOrUpdated = (updatedAt) => {
+    // Example logic: Check if updatedAt is within the last 7 days
+    const SEVEN_DAYS_IN_MS = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+    const updatedAtTime = new Date(updatedAt).getTime();
+    const currentTime = Date.now();
+    return currentTime - updatedAtTime < SEVEN_DAYS_IN_MS;
+  };
+  // Paginate filtered products
+  const paginatedProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + pageSize,
+  );
+
+  // Handle pagination click
+  const handleClickPage = (page: any) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -510,100 +685,72 @@ const MainSection = () => {
                       <li className="category-heading border-b border-gray-300 px-4 py-2 pt-4 bg-[#A4BC46] rounded-t-2xl text-white h-12">
                         Categories
                       </li>
-                      {subCategories.map((category, index) => (
-                        <li
-                          key={index}
-                          className={`category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
-                            isActive === category.name
-                              ? 'text-[#A4BC46]'
-                              : 'text-[#61676A]/80'
-                          } ${
-                            subCategories.length - 1 === index
-                              ? 'rounded-b-2xl'
-                              : ''
-                          }`}
-                        >
-                          {category.name === 'Vegetables' && (
-                            <VegeSidebar
-                              classes={
-                                'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                              }
-                            />
-                          )}
-
-                          {category.name === 'Fruits' && (
-                            <FruitSidebar
-                              classes={
-                                'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                              }
-                            />
-                          )}
-
-                          {category.name === 'Fresh Meat' && (
-                            <MeatSidebar
-                              classes={
-                                'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                              }
-                            />
-                          )}
-
-                          {category.name === 'Ocean Foods' && (
-                            <OceanSidebar
-                              classes={
-                                'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                              }
-                            />
-                          )}
-
-                          {category.name === 'Milk & Cream' && (
-                            <MilkSidebar
-                              classes={
-                                'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                              }
-                            />
-                          )}
-
-                          {category.name === 'Set Food' && (
-                            <SetSidebar
-                              classes={
-                                'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                              }
-                            />
-                          )}
-
-                          {category.name === 'Eggs' && (
-                            <EggSidebar
-                              classes={
-                                'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                              }
-                            />
-                          )}
-
-                          {category.name}
-                        </li>
-                      ))}
+                      {subCategories.map((category, index) => {
+                        const SidebarComponent =
+                          SidebarComponents[category.name];
+                        return (
+                          <li
+                            key={index}
+                            onClick={() => handleCategoryChange(category.name)}
+                            className={`category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
+                              isActive === category.name
+                                ? 'text-[#A4BC46]'
+                                : 'text-[#61676A]/80'
+                            } ${
+                              subCategories.length - 1 === index
+                                ? 'rounded-b-2xl'
+                                : ''
+                            }`}
+                          >
+                            {SidebarComponent && (
+                              <SidebarComponent
+                                classes={
+                                  'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
+                                }
+                              />
+                            )}
+                            {category.name}
+                          </li>
+                        );
+                      })}
                     </ul>
 
                     <ul
                       role="list"
                       className="space-y-4 border-l border-r border-t rounded-2xl border-gray-300 pb-0 text-sm font-medium text-gray-900 mt-8"
                     >
-                      {arrivalCategories.map((arrivalCategory, index) => (
-                        <li
-                          key={index}
-                          className={`category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
-                            isActive === arrivalCategory.name
-                              ? 'text-[#A4BC46]'
-                              : 'text-[#61676A]/80'
-                          } ${
-                            arrivalCategories.length - 1 === index
-                              ? 'rounded-b-2xl'
-                              : ''
-                          } ${index === 0 ? 'pt-4' : ''}`}
-                        >
-                          {arrivalCategory.name}
-                        </li>
-                      ))}
+                      <li
+                        onClick={() => handleArrivalStatusChange('newarrival')}
+                        className={`pt-4 category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
+                          selectedArrivalStatus.includes('newarrival')
+                            ? 'text-[#A4BC46]'
+                            : 'text-[#61676A]/80'
+                        }`}
+                      >
+                        New Arrivals
+                      </li>
+                      <li
+                        onClick={() => handleArrivalStatusChange('bestsellers')}
+                        className={` pt-4 category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
+                          selectedArrivalStatus.includes('bestsellers')
+                            ? 'text-[#A4BC46]'
+                            : 'text-[#61676A]/80'
+                        }`}
+                      >
+                        Best Sellers
+                      </li>
+                      <li
+                        onClick={() =>
+                          handleArrivalStatusChange('specialoffers')
+                        }
+                        className={`category-leading flex gap-x-2 border-b rounded-b-2xl border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
+                          selectedArrivalStatus.includes('specialoffers')
+                            ? 'text-[#A4BC46]'
+                            : 'text-[#61676A]/80'
+                        }`}
+                      >
+                        Special Offers
+                      </li>
                     </ul>
 
                     {filters.map((section) => (
@@ -634,21 +781,37 @@ const MainSection = () => {
                               <div className="relative mt-6 ">
                                 {/* Labels for range */}
                                 <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 bottom-6">
-                                  £10
+                                  £{value[0]}
                                 </span>
                                 <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 bottom-6">
-                                  £10000
+                                  £{value[1]}
                                 </span>
-                                <RangeSlider
-                                  id="sm-range"
-                                  sizing="sm"
-                                  value={value}
-                                  onChange={handleChange}
-                                  max={10000}
-                                  min={10}
-                                  color="#A4BC46"
-                                  className="text-[#A4BC46]"
-                                />
+                                <div className="w-full flex items-center">
+                                  <RangeSlider
+                                    min={minValue}
+                                    max={maxValue}
+                                    value={value[0]}
+                                    flow="rtl"
+                                    onChange={(newValue: any) =>
+                                      handlePriceChange([
+                                        Number(newValue),
+                                        value[1],
+                                      ])
+                                    }
+                                  />
+                                  <RangeSlider
+                                    min={minValue}
+                                    max={maxValue}
+                                    value={value[1]}
+                                    flow="rtl"
+                                    onChange={(newValue: any) =>
+                                      handlePriceChange([
+                                        value[0],
+                                        Number(newValue),
+                                      ])
+                                    }
+                                  />
+                                </div>
                               </div>
                             </Disclosure.Panel>
                             {!open && (
@@ -674,7 +837,6 @@ const MainSection = () => {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block">
-                {/* <h3 className="sr-only">Categories</h3> */}
                 <ul
                   role="list"
                   className="space-y-4 border-l border-r rounded-2xl border-gray-300 pb-0 text-sm font-medium text-gray-900"
@@ -682,100 +844,69 @@ const MainSection = () => {
                   <li className="category-heading border-b border-gray-300 px-4 py-2 pt-4 bg-[#A4BC46] rounded-t-2xl text-white h-12">
                     Categories
                   </li>
-                  {subCategories.map((category, index) => (
-                    <li
-                      key={index}
-                      className={`category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
-                        isActive === category.name
-                          ? 'text-[#A4BC46]'
-                          : 'text-[#61676A]/80'
-                      } ${
-                        subCategories.length - 1 === index
-                          ? 'rounded-b-2xl'
-                          : ''
-                      }`}
-                    >
-                      {category.name === 'Vegetables' && (
-                        <VegeSidebar
-                          classes={
-                            'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                          }
-                        />
-                      )}
-
-                      {category.name === 'Fruits' && (
-                        <FruitSidebar
-                          classes={
-                            'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                          }
-                        />
-                      )}
-
-                      {category.name === 'Fresh Meat' && (
-                        <MeatSidebar
-                          classes={
-                            'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                          }
-                        />
-                      )}
-
-                      {category.name === 'Ocean Foods' && (
-                        <OceanSidebar
-                          classes={
-                            'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                          }
-                        />
-                      )}
-
-                      {category.name === 'Milk & Cream' && (
-                        <MilkSidebar
-                          classes={
-                            'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                          }
-                        />
-                      )}
-
-                      {category.name === 'Set Food' && (
-                        <SetSidebar
-                          classes={
-                            'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                          }
-                        />
-                      )}
-
-                      {category.name === 'Eggs' && (
-                        <EggSidebar
-                          classes={
-                            'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
-                          }
-                        />
-                      )}
-
-                      {category.name}
-                    </li>
-                  ))}
+                  {subCategories.map((category, index) => {
+                    const SidebarComponent = SidebarComponents[category.name];
+                    return (
+                      <li
+                        key={index}
+                        onClick={() => handleCategoryChange(category.name)}
+                        className={`category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
+                          isActive === category.name
+                            ? 'text-[#A4BC46]'
+                            : 'text-[#61676A]/80'
+                        } ${
+                          subCategories.length - 1 === index
+                            ? 'rounded-b-2xl'
+                            : ''
+                        }`}
+                      >
+                        {SidebarComponent && (
+                          <SidebarComponent
+                            classes={
+                              'stroke-[#61676A]/50 group-hover:stroke-[#A4BC46]'
+                            }
+                          />
+                        )}
+                        {category.name}
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 <ul
                   role="list"
                   className="space-y-4 border-l border-r border-t rounded-2xl border-gray-300 pb-0 text-sm font-medium text-gray-900 mt-8"
                 >
-                  {arrivalCategories.map((arrivalCategory, index) => (
-                    <li
-                      key={index}
-                      className={`category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
-                        isActive === arrivalCategory.name
-                          ? 'text-[#A4BC46]'
-                          : 'text-[#61676A]/80'
-                      } ${
-                        arrivalCategories.length - 1 === index
-                          ? 'rounded-b-2xl'
-                          : ''
-                      } ${index === 0 ? 'pt-4' : ''}`}
-                    >
-                      {arrivalCategory.name}
-                    </li>
-                  ))}
+                  <li
+                    onClick={() => handleArrivalStatusChange('newarrival')}
+                    className={`pt-4 category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
+                      selectedArrivalStatus.includes('newarrival')
+                        ? 'text-[#A4BC46]'
+                        : 'text-[#61676A]/80'
+                    }`}
+                  >
+                    New Arrivals
+                  </li>
+                  <li
+                    onClick={() => handleArrivalStatusChange('bestsellers')}
+                    className={` pt-4 category-leading flex gap-x-2 border-b border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
+                      selectedArrivalStatus.includes('bestsellers')
+                        ? 'text-[#A4BC46]'
+                        : 'text-[#61676A]/80'
+                    }`}
+                  >
+                    Best Sellers
+                  </li>
+                  <li
+                    onClick={() => handleArrivalStatusChange('specialoffers')}
+                    className={`category-leading flex gap-x-2 border-b rounded-b-2xl border-gray-300 px-4 py-1 cursor-pointer pb-4 group hover:text-[#A4BC46] text-[#61676A]/50 ${
+                      selectedArrivalStatus.includes('specialoffers')
+                        ? 'text-[#A4BC46]'
+                        : 'text-[#61676A]/80'
+                    }`}
+                  >
+                    Special Offers
+                  </li>
                 </ul>
 
                 {filters.map((section) => (
@@ -806,21 +937,37 @@ const MainSection = () => {
                           <div className="relative mt-6 ">
                             {/* Labels for range */}
                             <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 bottom-6">
-                              £10
+                              £{value[0]}
                             </span>
                             <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 bottom-6">
-                              £10000
+                              £{value[1]}
                             </span>
-                            <RangeSlider
-                              id="sm-range"
-                              sizing="sm"
-                              value={value}
-                              onChange={handleChange}
-                              max={10000}
-                              min={10}
-                              color="#A4BC46"
-                              className="text-[#A4BC46]"
-                            />
+                            <div className="w-full flex items-center">
+                              <RangeSlider
+                                min={minValue}
+                                max={maxValue}
+                                value={value[0]}
+                                flow="rtl"
+                                onChange={(newValue: any) =>
+                                  handlePriceChange([
+                                    Number(newValue),
+                                    value[1],
+                                  ])
+                                }
+                              />
+                              <RangeSlider
+                                min={minValue}
+                                max={maxValue}
+                                value={value[1]}
+                                flow="rtl"
+                                onChange={(newValue: any) =>
+                                  handlePriceChange([
+                                    value[0],
+                                    Number(newValue),
+                                  ])
+                                }
+                              />
+                            </div>
                           </div>
                         </Disclosure.Panel>
                         {!open && (
@@ -832,62 +979,125 @@ const MainSection = () => {
                 ))}
               </form>
 
-              {/* Product grid */}
+              {/* Product Layout settings*/}
               <div className="lg:col-span-3">
                 {/* filter menu */}
-                <div className="flex items-baseline justify-start gap-x-2 pb-2">
-                  <div className="flex items-center justify-center rounded-xl border-gray-300 border py-2 pr-4">
-                    <button
-                      type="button"
-                      className="ml-2 p-2 text-gray-400 hover:text-gray-500 sm:ml-4"
-                    >
-                      <span className="sr-only">View grid</span>
-                      <ListBulletIcon
-                        className="h-5 w-5 hover:fill-[#A4BC46]"
-                        aria-hidden="true"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      className="-m-2 ml-2 p-2 text-gray-400 hover:text-gray-500 sm:ml-4"
-                    >
-                      <span className="sr-only">View grid</span>
-                      <Squares2X2Icon
-                        className="h-5 w-5 hover:fill-[#A4BC46]"
-                        aria-hidden="true"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      className="-m-2 ml-2 p-2 text-gray-400 hover:text-gray-500 sm:ml-4"
-                    >
-                      <span className="sr-only">View grid</span>
-                      <ThreeColGrid
-                        classes={'fill-[#C5C6C7] hover:fill-[#A4BC46] h-5 w-5'}
-                      />
-                      {/* < className="h-5 w-5" aria-hidden="true" /> */}
-                    </button>
-                    <button
-                      type="button"
-                      className="-m-2 ml-2 p-2 text-gray-400 hover:text-gray-500 sm:ml-4"
-                    >
-                      <span className="sr-only">View grid</span>
-                      <FourColGrid
-                        classes={'fill-[#C5C6C7] hover:fill-[#A4BC46] h-5 w-5'}
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                      onClick={() => setMobileFiltersOpen(true)}
-                    >
-                      <span className="sr-only">Filters</span>
-                      <FunnelIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
+                <div className="flex flex-col">
+                  <div className="flex items-baseline justify-start gap-x-2 pb-2">
+                    <div className="flex items-center justify-center rounded-xl border-gray-300 border py-2 pr-4">
+                      <button
+                        type="button"
+                        className="ml-2 p-2 text-gray-400 hover:text-gray-500 sm:ml-4"
+                        onClick={() => setLayout('list')}
+                      >
+                        <span className="sr-only">View grid</span>
+                        <ListBulletIcon
+                          className={`h-5 w-5 hover:fill-[#A4BC46] ${
+                            layout === 'list'
+                              ? 'fill-[#A4BC46]'
+                              : 'fill-gray-300'
+                          }`}
+                          aria-hidden="true"
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        className="-m-2 ml-2 p-2 text-gray-400 hover:text-gray-500 sm:ml-4"
+                        onClick={() => setLayout('two-column')}
+                      >
+                        <span className="sr-only">View grid</span>
+                        <Squares2X2Icon
+                          className={`h-5 w-5 hover:fill-[#A4BC46] ${
+                            layout === 'two-column'
+                              ? 'fill-[#A4BC46]'
+                              : 'fill-gray-300'
+                          }`}
+                          aria-hidden="true"
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        className="-m-2 ml-2 p-2 text-gray-400 hover:text-gray-500 sm:ml-4"
+                        onClick={() => setLayout('three-column')}
+                      >
+                        <span className="sr-only">View grid</span>
+                        <ThreeColGrid
+                          classes={`h-5 w-5 hover:fill-[#A4BC46] ${
+                            layout === 'three-column'
+                              ? 'fill-[#A4BC46]'
+                              : 'fill-gray-300'
+                          }`}
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        className="-m-2 ml-2 p-2 text-gray-400 hover:text-gray-500 sm:ml-4"
+                        onClick={() => setLayout('four-column')}
+                      >
+                        <span className="sr-only">View grid</span>
+                        <FourColGrid
+                          classes={`h-5 w-5 hover:fill-[#A4BC46] ${
+                            layout === 'four-column'
+                              ? 'fill-[#A4BC46]'
+                              : 'fill-gray-300'
+                          }`}
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                        onClick={() => setMobileFiltersOpen(true)}
+                      >
+                        <span className="sr-only">Filters</span>
+                        <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    {activeFilters.length > 0 && (
+                      <div className="mb-4 flex flex-wrap">
+                        {activeFilters.map((filter) => (
+                          <div
+                            key={filter}
+                            className="flex items-center bg-gray-200 rounded-full px-3 py-1 mr-2 mb-2"
+                          >
+                            <span className="mr-2">{filter}</span>
+                            <AiOutlineClose
+                              className="cursor-pointer"
+                              onClick={() => removeFilter(filter)}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
+                <div className="bg-[#F5F5F5] p-6 rounded-lg lg:rounded-br-lg lg:rounded-tr-lg lg:rounded-bl-none lg:rounded-tl-none">
+                  <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+                    <div
+                      className={`grid gap-4 grid-cols-1 ${
+                        layout === 'two-column' && paginatedProducts.length > 0
+                          ? 'sm:grid-cols-2'
+                          : layout === 'three-column' &&
+                            paginatedProducts.length > 0
+                          ? 'sm:grid-cols-3'
+                          : layout === 'four-column' &&
+                            paginatedProducts.length > 0
+                          ? 'xl:grid-cols-4 md:grid-cols-3'
+                          : 'sm:grid-cols-1'
+                      }`}
+                    >
+                      <ProductsList paginatedProducts={paginatedProducts} />
+                    </div>
+                  </div>
 
-                <ProductsList />
+                  <Pagination
+                    totalItems={filteredProducts.length}
+                    itemsPerPage={pageSize}
+                    currentPage={currentPage}
+                    onPageChange={handleClickPage}
+                  />
+                </div>
               </div>
             </div>
           </section>
@@ -897,144 +1107,126 @@ const MainSection = () => {
   );
 };
 
-const ProductsList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const startIndex = (currentPage - 1) * pageSize;
-
-  const paginatedProducts = products.slice(startIndex, startIndex + pageSize);
-
-  const handleClickPage = (page: number) => {
-    setCurrentPage(page);
-  };
-
+const ProductsList = ({ paginatedProducts }: { paginatedProducts: any[] }) => {
   return (
-    <div className="bg-[#F5F5F5] p-6 rounded-lg lg:rounded-br-lg lg:rounded-tr-lg lg:rounded-bl-none lg:rounded-tl-none">
-      <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
-          {paginatedProducts.length > 0 &&
-            paginatedProducts.map((product, index) => (
-              <div
-                key={index}
-                className="relative border border-white hover:border-[#C0DA71] hover:border-[1.58px] rounded-lg p-0"
-              >
-                <Link
-                  to={`/shop/product/${product.name}`}
-                  state={product}
-                  className="block cursor-pointer bg-white rounded-lg image-container"
-                >
-                  <img
-                    alt=""
-                    src={product.imageSrc}
-                    className="h-full min-h-[208px] w-full object-cover object-center group-hover:opacity-75 rounded-t-lg"
-                  />
+    <>
+      {paginatedProducts.length > 0 ? (
+        paginatedProducts.map((product, index) => (
+          <div
+            key={index}
+            className="relative border border-white hover:border-[#C0DA71] hover:border-[1.58px] rounded-lg p-0"
+          >
+            <Link
+              to={`/shop/product/${product.name}`}
+              state={product}
+              className="block cursor-pointer bg-white rounded-lg image-container"
+            >
+              <img
+                alt=""
+                src={product.imageSrc}
+                className="h-full min-h-[208px] w-full object-cover object-center group-hover:opacity-75 rounded-t-lg"
+              />
 
-                  <div className="px-2 py-2 flex justify-between bg-white rounded-b-lg">
-                    <dl>
-                      <div className="my-4 item-name">
-                        <dt className="sr-only">name</dt>
-                        <dd className="font-medium cursor-default">
-                          {product.name}
-                        </dd>
-                      </div>
-                      <div className="my-4">
-                        <dt className="sr-only">Price/Qty</dt>
-                        <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
-                          {product.price_qty
+              <div className="px-2 py-2 flex justify-between bg-white rounded-b-lg">
+                <dl>
+                  <div className="my-4 item-name">
+                    <dt className="sr-only">name</dt>
+                    <dd className="font-medium cursor-default">
+                      {product.name}
+                    </dd>
+                  </div>
+                  <div className="my-4">
+                    <dt className="sr-only">Price/Qty</dt>
+                    <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                      {product.price_qty
+                        ? new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'GBP',
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          }).format(Number(product.price_qty))
+                        : new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'GBP',
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          }).format(0)}{' '}
+                      / {product.unit}
+                    </dd>
+                  </div>
+                  <div className="flex gap-4 items-center">
+                    <div>
+                      <dt className="sr-only">Price</dt>
+                      <dd className="text-sm text-gray-500 cursor-default item-price">
+                        {product.discount && product.price
+                          ? Number(product.discount) > 0
                             ? new Intl.NumberFormat('en-US', {
                                 style: 'currency',
                                 currency: 'GBP',
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
-                              }).format(Number(product.price_qty))
+                              }).format(
+                                Number(product.price) -
+                                  (Number(product.price) *
+                                    Number(product.discount)) /
+                                    100,
+                              )
                             : new Intl.NumberFormat('en-US', {
                                 style: 'currency',
                                 currency: 'GBP',
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
-                              }).format(0)}{' '}
-                          / {product.unit}
-                        </dd>
-                      </div>
-                      <div className="flex gap-4 items-center">
-                        <div>
-                          <dt className="sr-only">Price</dt>
-                          <dd className="text-sm text-gray-500 cursor-default item-price">
-                            {product.discount && product.price
-                              ? Number(product.discount) > 0
-                                ? new Intl.NumberFormat('en-US', {
-                                    style: 'currency',
-                                    currency: 'GBP',
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  }).format(
-                                    Number(product.price) -
-                                      (Number(product.price) *
-                                        Number(product.discount)) /
-                                        100,
-                                  )
-                                : new Intl.NumberFormat('en-US', {
-                                    style: 'currency',
-                                    currency: 'GBP',
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  }).format(Number(product.price))
-                              : new Intl.NumberFormat('en-US', {
-                                  style: 'currency',
-                                  currency: 'GBP',
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }).format(0)}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="sr-only">Original Price</dt>
-                          <dd className="text-xs text-gray-500 line-through cursor-default item-discount">
-                            {product.price &&
-                            product.discount &&
-                            Number(product.discount) > 0
-                              ? new Intl.NumberFormat('en-US', {
-                                  style: 'currency',
-                                  currency: 'GBP',
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }).format(Number(product.price))
-                              : null}
-                          </dd>
-                        </div>
-                      </div>
-                    </dl>
+                              }).format(Number(product.price))
+                          : new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(0)}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="sr-only">Original Price</dt>
+                      <dd className="text-xs text-gray-500 line-through cursor-default item-discount">
+                        {product.price &&
+                        product.discount &&
+                        Number(product.discount) > 0
+                          ? new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(Number(product.price))
+                          : null}
+                      </dd>
+                    </div>
                   </div>
-                </Link>
-                <FabRoundedTooltipsTopRight
-                  discount={
-                    product?.discount && Number(product?.discount) > 0
-                      ? Number(product?.discount)
-                      : 0
-                  }
-                  productPost={
-                    product?.updatedAt &&
-                    moment(moment(new Date()).format('YYYY-MM-DD')).diff(
-                      moment(moment(product?.updatedAt).format('YYYY-MM-DD')),
-                      'days',
-                    ) > 4
-                      ? false
-                      : true
-                  }
-                />
-                <FabRoundedTooltipsRight />
+                </dl>
               </div>
-            ))}
-        </div>
-      </div>
-
-      <Pagination
-        totalItems={products.length}
-        itemsPerPage={pageSize}
-        currentPage={currentPage}
-        onPageChange={handleClickPage}
-      />
-    </div>
+            </Link>
+            <FabRoundedTooltipsTopRight
+              discount={
+                product?.discount && Number(product?.discount) > 0
+                  ? Number(product?.discount)
+                  : 0
+              }
+              productPost={
+                product?.updatedAt &&
+                moment(moment(new Date()).format('YYYY-MM-DD')).diff(
+                  moment(moment(product?.updatedAt).format('YYYY-MM-DD')),
+                  'days',
+                ) > 4
+                  ? false
+                  : true
+              }
+            />
+            <FabRoundedTooltipsRight />
+          </div>
+        ))
+      ) : (
+        <div className="text-center text-gray-600 py-4">No products found.</div>
+      )}
+    </>
   );
 };
 
