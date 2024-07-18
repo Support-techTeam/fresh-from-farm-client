@@ -1056,7 +1056,7 @@ const ShopMain = () => {
           }}
         >
           <h1 className="breadcrumb-h1">Shop</h1>
-          <Breadcrumbs>
+          <Breadcrumbs >
             <Link to="/" className="opacity-60">
               Home
             </Link>

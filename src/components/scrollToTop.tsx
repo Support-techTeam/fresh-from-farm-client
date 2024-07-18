@@ -8,7 +8,7 @@ type Props = {
 const ScrollToTop: FC<Props> = (props) => {
   const location = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    (window as any).scrollTo(0, 0);
   }, [location]);
 
   return <>{props.children}</>;
