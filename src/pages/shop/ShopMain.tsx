@@ -31,7 +31,9 @@ import {
   VegeSidebar,
 } from '../../components/icons/sidebar';
 import RangeSlider from '../../components/common/RangeSlider';
-// import { RangeSlider } from 'flowbite-react';
+import ListViewProducts from '../../components/products/ListViewProducts';
+import { experimentalStyled as styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
 const products = [
   {
@@ -546,7 +548,7 @@ const MainSection = () => {
 
   // Remove category filter
   // Remove filter from categories and arrival status
-  const removeFilter = (filter) => {
+  const removeFilter = (filter: any) => {
     // Handle removal of category filters
     if (selectedCategories.includes(filter)) {
       setSelectedCategories(
@@ -1072,24 +1074,18 @@ const MainSection = () => {
                     )}
                   </div>
                 </div>
-                <div className="bg-[#F5F5F5] p-6 rounded-lg lg:rounded-br-lg lg:rounded-tr-lg lg:rounded-bl-none lg:rounded-tl-none">
-                  <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-                    <div
-                      className={`grid gap-4 grid-cols-1 ${
-                        layout === 'two-column' && paginatedProducts.length > 0
-                          ? 'sm:grid-cols-2'
-                          : layout === 'three-column' &&
-                            paginatedProducts.length > 0
-                          ? 'sm:grid-cols-3'
-                          : layout === 'four-column' &&
-                            paginatedProducts.length > 0
-                          ? 'xl:grid-cols-4 md:grid-cols-3'
-                          : 'sm:grid-cols-1'
-                      }`}
-                    >
-                      <ProductsList paginatedProducts={paginatedProducts} />
-                    </div>
-                  </div>
+                <div className="bg-white p-6 rounded-lg lg:rounded-br-lg lg:rounded-tr-lg lg:rounded-bl-none lg:rounded-tl-none">
+                  {layout === 'list' ? (
+                    <ListViewProducts
+                      paginatedProducts={paginatedProducts}
+                      layout={layout}
+                    />
+                  ) : (
+                    <ProductsList
+                      paginatedProducts={paginatedProducts}
+                      layout={layout}
+                    />
+                  )}
 
                   <Pagination
                     totalItems={filteredProducts.length}
@@ -1107,14 +1103,37 @@ const MainSection = () => {
   );
 };
 
-const ProductsList = ({ paginatedProducts }: { paginatedProducts: any[] }) => {
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
+const ProductsList = ({
+  paginatedProducts,
+  layout,
+}: {
+  paginatedProducts: any[];
+  layout: string;
+}) => {
   return (
-    <>
+    <div
+      className={`grid gap-4 grid-cols-1 ${
+        layout === 'two-column' && paginatedProducts.length > 0
+          ? 'xl:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1'
+          : layout === 'three-column' && paginatedProducts.length > 0
+          ? 'xl:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1'
+          : layout === 'four-column' && paginatedProducts.length > 0
+          ? 'xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1'
+          : 'sm:grid-cols-1'
+      }`}
+    >
       {paginatedProducts.length > 0 ? (
         paginatedProducts.map((product, index) => (
-          <div
-            key={index}
-            className="relative border border-white hover:border-[#C0DA71] hover:border-[1.58px] rounded-lg p-0"
+          <Item
+            elevation={0}
+            className="relative border border-gray-100 hover:border-[#C0DA71] hover:border-[1.58px] rounded-lg p-0"
           >
             <Link
               to={`/shop/product/${product.name}`}
@@ -1221,12 +1240,12 @@ const ProductsList = ({ paginatedProducts }: { paginatedProducts: any[] }) => {
               }
             />
             <FabRoundedTooltipsRight />
-          </div>
+          </Item>
         ))
       ) : (
         <div className="text-center text-gray-600 py-4">No products found.</div>
       )}
-    </>
+    </div>
   );
 };
 

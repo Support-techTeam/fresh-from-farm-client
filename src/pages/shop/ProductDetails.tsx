@@ -12,7 +12,6 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import { Link, useLocation } from 'react-router-dom';
 import BaseDirectories from '../../base_directory/BaseDirectory';
 import moment from 'moment';
-import { Tabs } from 'flowbite-react';
 
 function FabRoundedTooltipsTopRight({
   discount,
