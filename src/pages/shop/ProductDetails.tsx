@@ -15,7 +15,428 @@ import moment from 'moment';
 import NumberInput from '../../components/common/NumberInput';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { XCircleIcon } from '@heroicons/react/20/solid';
+import ShoppingProcess from '../../components/shop/ShoppingProcess';
+import ShoppingBannerSection from '../../components/shop/Banner';
+import RelatedProductList from '../../components/shop/RelatedProductList';
+import { Rating } from '@material-tailwind/react';
+import usePersistentCart from '../../hooks/usePersistentCart';
 
+const products = [
+  {
+    id: 1,
+    name: 'Cabbage (300g)',
+    price_qty: 1.2,
+    price: 23,
+    discount: '0',
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: true,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-24T00:00:00.000Z',
+    size: '300g',
+    origin: 'London',
+    product_code: 'AE-001',
+    category: 'Vegetables',
+    availiableQty: 4,
+    criticalQty: 2,
+    tax: 0.12,
+    reviews: [
+      {
+        name: 'Jane McCulling',
+        rating: 4,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+      {
+        name: 'John Smith',
+        rating: 5,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+      {
+        name: 'Jim Cole',
+        rating: 3,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+      {
+        name: 'Jack Dole',
+        rating: 2,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+    ],
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 2,
+    name: 'Dried Prawns (100g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '2.30',
+    discount: '5',
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158372/f3-client/images/Picture_1_mkqpv8.png',
+    imageAlt: 'Dried Prawns',
+    bestSeller: false,
+    specialOffer: true,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-27T00:00:00.000Z',
+    size: '100g',
+    origin: 'London',
+    product_code: 'AE-002',
+    category: 'Sea Foods',
+    availiableQty: 10,
+    criticalQty: 2,
+    tax: 0.12,
+    reviews: [
+      {
+        name: 'Jim',
+        rating: 3,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+      {
+        name: 'Jack',
+        rating: 2,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ',
+      },
+    ],
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+
+  {
+    id: 3,
+    name: 'Banana (10 Pcs)',
+    price_qty: '1.20',
+    href: '#',
+    price: '12',
+    discount: '0',
+    unit: 'Pc',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158340/f3-client/images/Picture_2_pjyron.png',
+    imageAlt: 'Banana',
+    bestSeller: true,
+    specialOffer: true,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-26T00:00:00.000Z',
+    size: '10 Pcs',
+    origin: 'London',
+    product_code: 'AE-003',
+    category: 'Fruits',
+    availiableQty: 1,
+    criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 4,
+    name: 'Whole Turkey (200g)',
+    price_qty: '2.20',
+    href: '#',
+    price: '4.40',
+    discount: '0',
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158341/f3-client/images/Picture_3_vr9r17.png',
+    imageAlt: 'Whole Turkey',
+    bestSeller: true,
+    specialOffer: false,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-25T00:00:00.000Z',
+    size: '200g',
+    origin: 'London',
+    product_code: 'AE-004',
+    category: 'Fresh Meat',
+    availiableQty: 12,
+    criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 5,
+    name: 'Mushrooms (400g)',
+    price_qty: '3.20',
+    href: '#',
+    price: '12',
+    discount: '0',
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158347/f3-client/images/Picture_4_jvg2x9.png',
+    imageAlt: 'Mushrooms',
+    bestSeller: true,
+    specialOffer: false,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-27T00:00:00.000Z',
+    size: '400g',
+    origin: 'London',
+    product_code: 'AE-005',
+    category: 'Vegetable',
+    availiableQty: 10,
+    criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 6,
+    name: 'Guava fruit (10 Pcs)',
+    price_qty: '0.80',
+    href: '#',
+    price: '8',
+    discount: '0',
+    unit: 'Pc',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158349/f3-client/images/Picture_5_njef4f.png',
+    imageAlt: 'Guava fruit',
+    bestSeller: false,
+    specialOffer: false,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-27T00:00:00.000Z',
+    size: '10 Pcs',
+    origin: 'London',
+    product_code: 'AE-006',
+    category: 'Fruits',
+    availiableQty: 10,
+    criticalQty: 2,
+    reviews: [],
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 7,
+    name: 'Beef sausage (400g)',
+    price_qty: '2.30',
+    href: '#',
+    price: '23',
+    discount: '5',
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158356/f3-client/images/Picture_6_quxcdw.png',
+    imageAlt: 'beef sausage',
+    bestSeller: false,
+    specialOffer: false,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-27T00:00:00.000Z',
+    size: '400g',
+    origin: 'London',
+    product_code: 'AE-007',
+    category: 'Fresh Meat',
+    availiableQty: 10,
+    criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 8,
+    name: 'Orange (10 Pcs)',
+    price_qty: '1.20',
+    href: '#',
+    price: '10',
+    discount: '0',
+    unit: 'Pc',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158344/f3-client/images/product_orange_hnthzs.png',
+    imageAlt: 'Oranges',
+    bestSeller: false,
+    specialOffer: false,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-27T00:00:00.000Z',
+    size: '10 Pcs',
+    origin: 'London',
+    product_code: 'AE-008',
+    category: 'Fruits',
+    availiableQty: 10,
+    criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 9,
+    name: 'Cabbage (300g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '48',
+    discount: '0',
+    category: 'Vegetable',
+    availiableQty: 10,
+    criticalQty: 2,
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
+    createdAt: '2024-04-20T00:00:00.000Z',
+    updatedAt: '2024-04-27T00:00:00.000Z',
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 10,
+    name: 'Cabbage (300g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '48',
+    discount: '0',
+    category: 'Vegetables',
+    availiableQty: 10,
+    criticalQty: 2,
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 11,
+    name: 'Cabbage (300g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '48',
+    discount: '0',
+    category: 'Vegetables',
+    availiableQty: 10,
+    criticalQty: 2,
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
+    reviews: [],
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 12,
+    name: 'Cabbage (300g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '48',
+    discount: '0',
+    category: 'Vegetables',
+    availiableQty: 10,
+    criticalQty: 2,
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 13,
+    name: 'Cabbage (300g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '48',
+    discount: '0',
+    category: 'Vegetables',
+    availiableQty: 10,
+    criticalQty: 2,
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 14,
+    name: 'Cabbage (300g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '48',
+    discount: '0',
+    category: 'Vegetables',
+    availiableQty: 10,
+    criticalQty: 2,
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 15,
+    name: 'Cabbage (300g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '48',
+    discount: '0',
+    category: 'Vegetables',
+    availiableQty: 10,
+    criticalQty: 2,
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+  {
+    id: 16,
+    name: 'Cabbage (300g)',
+    price_qty: '1.20',
+    href: '#',
+    price: '48',
+    discount: '0',
+    category: 'Vegetables',
+    availiableQty: 10,
+    criticalQty: 2,
+    unit: 'g',
+    imageSrc:
+      'https://res.cloudinary.com/freshfromfarm/image/upload/v1714158361/f3-client/images/Picture_jciuwb.png',
+    imageAlt: 'Cabbage',
+    bestSeller: false,
+    specialOffer: false,
+    reviews: [],
+    tax: 0.12,
+    description:
+      'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
+  },
+];
 function FabRoundedTooltipsTopRight({
   discount,
   productPost,
@@ -55,6 +476,22 @@ const ProductDetails = () => {
   const location = useLocation();
   const product = location.state || {};
   const [open, setOpen] = useState('description');
+  const { cart, addItem, updateItemQuantity, removeItem, clearCart } =
+    usePersistentCart();
+  const handleAddItem = (newProduct: any) => {
+    console.debug(cart);
+    if (newProduct.name.trim() !== '') {
+      addItem({ ...newProduct, quantity: 1 });
+    }
+  };
+
+  const relatedProducts =
+    products.length > 0 &&
+    products
+      .filter(
+        (item) => item.category === product.category && item.id !== product.id,
+      )
+      .slice(0, 4);
 
   const handleTabOpen = (tabCategory: any) => {
     setOpen(tabCategory);
@@ -67,34 +504,78 @@ const ProductDetails = () => {
     prodImg,
   }: any) => {
     return (
-      <div>
+      <div className={`${open === tabCategory ? 'block' : 'hidden'} `}>
         <div
-          className={`p-6 text-base leading-relaxed text-body-color justify-center items-center flex flex-col gap-4 ${
-            open === tabCategory ? 'block' : 'hidden'
-          } `}
+          className={`pt-6 text-base leading-relaxed text-[#727272] justify-center items-center flex flex-col gap-4`}
         >
-          {details}
+          <p>{details}</p>
           {prodImg && (
             <img
               alt=""
               src={prodImg}
-              className="w-[60%] h-[60%] object-contain object-center md:px-4 mb-4 rounded-xl"
+              className="md:w-[60%] md:h-[60%] w-[100%] h-80 object-fill object-center md:px-4 my-2 rounded-xl"
             />
           )}
+          <p>{details}</p>
+          <p>{details}</p>
         </div>
+
+        <ShoppingProcess />
+        <ShoppingBannerSection />
       </div>
     );
   };
 
-  const TabContentReview = ({ open, tabCategory, details }: any) => {
+  const TabContentReview = ({ open, tabCategory, reviews }: any) => {
     return (
       <div>
         <div
-          className={`p-6 text-base leading-relaxed text-body-color dark:text-dark-6 ${
+          className={`pt-6 text-base leading-relaxed text-[#727272] dark:text-dark-6 ${
             open === tabCategory ? 'block' : 'hidden'
           } `}
         >
-          {details}
+          <div className="bg-white py-6">
+            <div className="w-screen-md">
+              <div className="divide-y">
+                {reviews?.length > 0 &&
+                  reviews?.map((review: any) => (
+                    <div className="flex flex-col gap-3 py-4 md:py-8">
+                      <div>
+                        <span className="block text-xs font-bold text-[#A4BC46]">
+                          {review?.name}
+                        </span>
+
+                        <span className="-ml-1 flex gap-0.5 my-1">
+                          <Rating
+                            value={review?.rating}
+                            readonly
+                            unratedColor="amber"
+                            ratedColor="amber"
+                          />
+                        </span>
+                        <span className="block text-xs text-[#61676A]">
+                          {moment(review?.date).format('MMM DD, YYYY')}
+                        </span>
+                      </div>
+                      <p className="text-[#61676A] text-xs">{review?.text}</p>
+                    </div>
+                  ))}
+              </div>
+              <div className="flex justify-left items-left gap-4 mt-6">
+                <div className="flex md:flex-row flex-col justify-left pb-1 pt-10">
+                  <div className="flex flex-col text-[#48521e]">
+                    <h5 className="lily-script-one-regular text-4xl pb-2">
+                      Add A Review
+                    </h5>
+                    <p className="text-[#61676A] text-sm">
+                      You email address will not be published. Required fields
+                      are marked
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -285,6 +766,7 @@ const ProductDetails = () => {
                 <Button
                   className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto"
                   disabled={product?.availiableQty <= 0}
+                  onClick={() => handleAddItem(product)}
                 >
                   {/* <ShoppingCartIcon className="h-6 w-6" /> */}
                   <img
@@ -331,51 +813,54 @@ const ProductDetails = () => {
             </div>
           </div>
         </section>
-        <>
-          <section className="mx-auto w-full px-8">
-            <div className="mx-auto container ">
-              <div className="-mx-4 flex flex-wrap">
-                <div className="w-full px-4">
-                  <div className="mb-14 w-full">
-                    <div className="flex flex-col justify-evenly items-center gap-4 text-center rounded-lg border border-[#E4E4E4] px-4 py-3 dark:border-dark-3 sm:flex-row">
-                      <a
-                        onClick={() => handleTabOpen('description')}
-                        className={`cursor-pointer rounded-md px-4 py-3 text-sm font-medium md:text-base lg:px-6 w-full text-gray-500 ${
-                          open === 'description'
-                            ? 'bg-[#BFC831] text-white'
-                            : 'text-body-color hover:bg-white hover:text-[#BFC831]'
-                        }`}
-                      >
-                        DESCRIPTION
-                      </a>
-                      <a
-                        onClick={() => handleTabOpen('reviews')}
-                        className={`cursor-pointer rounded-md px-4 py-3 text-sm font-medium md:text-base lg:px-6 w-full text-gray-500  ${
-                          open === 'reviews'
-                            ? 'bg-[#BFC831] text-white'
-                            : 'text-body-color hover:bg-white hover:text-[#BFC831]'
-                        }`}
-                      >
-                        REVIEWS
-                      </a>
-                    </div>
-                    <TabContentDescription
-                      details={product.description}
-                      prodImg={product.imageSrc}
-                      tabCategory="description"
-                      open={open}
-                    />
-                    <TabContentReview
-                      details=" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia nisi, doloribus nulla cumque molestias corporis eaque harum vero! "
-                      tabCategory="reviews"
-                      open={open}
-                    />
+
+        <section className="mx-auto w-full px-8">
+          <div className="mx-auto container ">
+            <div className="-mx-4 flex flex-wrap">
+              <div className="w-full px-4">
+                <div className="mb-0 w-full">
+                  <div className="flex flex-col justify-evenly items-center gap-4 text-center rounded-lg border border-[#E4E4E4] px-4 py-3 dark:border-dark-3 sm:flex-row">
+                    <a
+                      onClick={() => handleTabOpen('description')}
+                      className={`cursor-pointer rounded-md px-4 py-3 text-sm font-medium md:text-base lg:px-6 w-full text-gray-500 ${
+                        open === 'description'
+                          ? 'bg-[#BFC831] text-white'
+                          : 'text-body-color hover:bg-white hover:text-[#BFC831]'
+                      }`}
+                    >
+                      DESCRIPTION
+                    </a>
+                    <a
+                      onClick={() => handleTabOpen('reviews')}
+                      className={`cursor-pointer rounded-md px-4 py-3 text-sm font-medium md:text-base lg:px-6 w-full text-gray-500  ${
+                        open === 'reviews'
+                          ? 'bg-[#BFC831] text-white'
+                          : 'text-body-color hover:bg-white hover:text-[#BFC831]'
+                      }`}
+                    >
+                      REVIEWS
+                    </a>
                   </div>
+                  <TabContentDescription
+                    details={product.description}
+                    prodImg={product.imageSrc}
+                    tabCategory="description"
+                    open={open}
+                  />
+                  <TabContentReview
+                    reviews={product.reviews}
+                    tabCategory="reviews"
+                    open={open}
+                  />
                 </div>
               </div>
             </div>
-          </section>
-        </>
+          </div>
+        </section>
+
+        {relatedProducts.length > 0 && (
+          <RelatedProductList products={relatedProducts} />
+        )}
       </main>
     </div>
   );

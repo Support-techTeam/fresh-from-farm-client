@@ -54,6 +54,33 @@ const products = [
     category: 'Vegetables',
     availiableQty: 4,
     criticalQty: 2,
+    tax: 0.12,
+    reviews: [
+      {
+        name: 'Jane McCulling',
+        rating: 4,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+      {
+        name: 'John Smith',
+        rating: 5,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+      {
+        name: 'Jim Cole',
+        rating: 3,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+      {
+        name: 'Jack Dole',
+        rating: 2,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+    ],
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -78,6 +105,21 @@ const products = [
     category: 'Sea Foods',
     availiableQty: 10,
     criticalQty: 2,
+    tax: 0.12,
+    reviews: [
+      {
+        name: 'Jim',
+        rating: 3,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+      {
+        name: 'Jack',
+        rating: 2,
+        createdAt: '2024-04-20T00:00:00.000Z',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ',
+      },
+    ],
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -103,6 +145,8 @@ const products = [
     category: 'Fruits',
     availiableQty: 1,
     criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -127,6 +171,8 @@ const products = [
     category: 'Fresh Meat',
     availiableQty: 12,
     criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -151,6 +197,8 @@ const products = [
     category: 'Vegetable',
     availiableQty: 10,
     criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -175,6 +223,7 @@ const products = [
     category: 'Fruits',
     availiableQty: 10,
     criticalQty: 2,
+    reviews: [],
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -199,6 +248,8 @@ const products = [
     category: 'Fresh Meat',
     availiableQty: 10,
     criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -223,6 +274,8 @@ const products = [
     category: 'Fruits',
     availiableQty: 10,
     criticalQty: 2,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -244,6 +297,8 @@ const products = [
     specialOffer: false,
     createdAt: '2024-04-20T00:00:00.000Z',
     updatedAt: '2024-04-27T00:00:00.000Z',
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -263,6 +318,8 @@ const products = [
     imageAlt: 'Cabbage',
     bestSeller: false,
     specialOffer: false,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -282,6 +339,7 @@ const products = [
     imageAlt: 'Cabbage',
     bestSeller: false,
     specialOffer: false,
+    reviews: [],
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -301,6 +359,8 @@ const products = [
     imageAlt: 'Cabbage',
     bestSeller: false,
     specialOffer: false,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -320,6 +380,8 @@ const products = [
     imageAlt: 'Cabbage',
     bestSeller: false,
     specialOffer: false,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -339,6 +401,8 @@ const products = [
     imageAlt: 'Cabbage',
     bestSeller: false,
     specialOffer: false,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -358,6 +422,8 @@ const products = [
     imageAlt: 'Cabbage',
     bestSeller: false,
     specialOffer: false,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
@@ -377,6 +443,8 @@ const products = [
     imageAlt: 'Cabbage',
     bestSeller: false,
     specialOffer: false,
+    reviews: [],
+    tax: 0.12,
     description:
       'consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.',
   },
