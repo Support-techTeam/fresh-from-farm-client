@@ -13,6 +13,8 @@ import { Link, useLocation } from 'react-router-dom';
 import BaseDirectories from '../../base_directory/BaseDirectory';
 import moment from 'moment';
 import NumberInput from '../../components/common/NumberInput';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { XCircleIcon } from '@heroicons/react/20/solid';
 
 function FabRoundedTooltipsTopRight({
   discount,
@@ -127,7 +129,7 @@ const ProductDetails = () => {
             </Link>
           </Breadcrumbs>
         </div>
-        <section className="py-16 px-8">
+        <section className="py-10 px-8">
           <div className="mx-auto container grid place-items-center grid-cols-1 md:grid-cols-2">
             <div className="relative border border-white rounded-lg p-0">
               <img
@@ -193,119 +195,138 @@ const ProductDetails = () => {
               <Typography className="!mt-4 text-base font-normal leading-[27px] !text-gray-500">
                 {product.description}
               </Typography>
+              {product.availiableQty > 0 ? (
+                <div className="flex items-center align-middle gap-2 my-2">
+                  <CheckCircleIcon className="h-6 w-6 text-green-500" />
+                  <Typography className="font-normal text-base leading-[27px] !text-green-500">
+                    In Stock
+                  </Typography>
+                </div>
+              ) : (
+                <div className="flex items-center align-middle gap-2 my-2">
+                  <XCircleIcon className="h-6 w-6 text-red-500" />
+                  <Typography className="font-normal text-base leading-[27px] !text-red-500">
+                    Out of Stock
+                  </Typography>
+                </div>
+              )}
               <div className="flex gap-4 items-center my-2">
-                <div>
-                  <dt className="sr-only">Price</dt>
-                  <Typography className="text-sm text-gray-500 cursor-default item-price">
-                    {product.discount && product.price
-                      ? Number(product.discount) > 0
-                        ? new Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: 'GBP',
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          }).format(
-                            Number(product.price) -
-                              (Number(product.price) *
-                                Number(product.discount)) /
-                                100,
-                          )
+                <div className="flex flex-wrap gap-4 items-center my-2">
+                  <div>
+                    <dt className="sr-only">Price</dt>
+                    <Typography className="text-sm text-gray-500 cursor-default item-price">
+                      {product.discount && product.price
+                        ? Number(product.discount) > 0
+                          ? new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(
+                              Number(product.price) -
+                                (Number(product.price) *
+                                  Number(product.discount)) /
+                                  100,
+                            )
+                          : new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(Number(product.price))
                         : new Intl.NumberFormat('en-US', {
                             style: 'currency',
                             currency: 'GBP',
                             maximumFractionDigits: 2,
                             minimumFractionDigits: 2,
+                          }).format(0)}
+                    </Typography>
+                  </div>
+                  <div>
+                    <dt className="sr-only">Original Price</dt>
+                    <Typography className="text-xs text-gray-500 line-through cursor-default item-discount">
+                      {product.price &&
+                      product.discount &&
+                      Number(product.discount) > 0
+                        ? new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'GBP',
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
                           }).format(Number(product.price))
-                      : new Intl.NumberFormat('en-US', {
-                          style: 'currency',
-                          currency: 'GBP',
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }).format(0)}
-                  </Typography>
-                </div>
-                <div>
-                  <dt className="sr-only">Original Price</dt>
-                  <Typography className="text-xs text-gray-500 line-through cursor-default item-discount">
-                    {product.price &&
-                    product.discount &&
-                    Number(product.discount) > 0
-                      ? new Intl.NumberFormat('en-US', {
-                          style: 'currency',
-                          currency: 'GBP',
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }).format(Number(product.price))
-                      : null}
-                  </Typography>
-                </div>
-                |{/* <!-- shipping notice - start --> */}
-                <div className="flex items-center gap-2 text-gray-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-                    />
-                  </svg>
+                        : null}
+                    </Typography>
+                  </div>
+                  |{/* <!-- shipping notice - start --> */}
+                  <div className="flex items-center gap-1 text-gray-500">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
+                      />
+                    </svg>
 
-                  <span className="text-sm">Free delivery from £100</span>
+                    <span className="text-xs">Free delivery from £100</span>
+                  </div>
+                  {/* <!-- shipping notice - end --> */}
                 </div>
-                {/* <!-- shipping notice - end --> */}
               </div>
-              <div className="mb-4 flex w-full items-center gap-3">
+              <div className="mb-4 flex flex-wrap w-full items-center gap-3">
                 <NumberInput min={1} max={product?.availiableQty} />
-                <Button className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto">
-                  <ShoppingCartIcon className="h-6 w-6" />
+                <Button
+                  className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto"
+                  disabled={product?.availiableQty <= 0}
+                >
+                  {/* <ShoppingCartIcon className="h-6 w-6" /> */}
+                  <img
+                    src={`${BaseDirectories.LOGOS_DIR}/mini_cart.svg`}
+                    alt="cart"
+                  />
                   Add to Cart
                 </Button>
                 <IconButton color="gray" variant="text" className="shrink-0">
                   <HeartIcon className="h-6 w-6" />
                 </IconButton>
               </div>
-              <div className="mb-2 flex w-full items-center gap-3 md:w-1/2 ">
-                <dt className="sr-only">Size</dt>
-                <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
-                  Size:
-                </dd>
-                <dd className="text-sm text-gray-700 cursor-default">
-                  {product.size}
-                </dd>
-              </div>
-              <div className="mb-2 flex w-full items-center gap-3 md:w-1/2 ">
-                <dt className="sr-only">Origin</dt>
-                <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
-                  Origin:
-                </dd>
-                <dd className="text-sm text-gray-700 cursor-default">
-                  {product.origin}
-                </dd>
-              </div>
-              <div className="mb-2 flex w-full items-center gap-3 md:w-1/2 ">
-                <dt className="sr-only">Product Code</dt>
-                <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
-                  Product Code:
-                </dd>
-                <dd className="text-sm text-gray-700 cursor-default">
-                  {product.product_code}
-                </dd>
-              </div>
-              <div className="mb-2 flex w-full items-center gap-3 md:w-1/2 ">
-                <dt className="sr-only">Tag</dt>
-                <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
-                  Tag:
-                </dd>
-                <dd className="text-sm text-gray-700 cursor-default">
-                  {product.category}
-                </dd>
+              <div className="flex flex-col my-6 gap-6">
+                <div className="flex flex-row w-full items-center gap-6 md:gap-1">
+                  <Typography className="sr-only">Size</Typography>
+                  <p className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                    Size: <span className="text-gray-700">{product.size}</span>
+                  </p>
+                </div>
+                <div className="flex flex-row w-full items-center gap-6 md:gap-1">
+                  <Typography className="sr-only">Origin</Typography>
+                  <p className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                    Origin:{' '}
+                    <span className="text-gray-700">{product.origin}</span>
+                  </p>
+                </div>
+                <div className="flex flex-row w-full items-center gap-6 md:gap-1">
+                  <Typography className="sr-only">Product Code</Typography>
+                  <p className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                    Product Code:{' '}
+                    <span className="text-gray-700">
+                      {product.product_code}
+                    </span>
+                  </p>
+                </div>
+                <div className="flex flex-row w-full items-center gap-6 md:gap-1">
+                  <Typography className="sr-only">Product Code</Typography>
+                  <p className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                    Tag:{' '}
+                    <span className="text-gray-700">{product.category}</span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

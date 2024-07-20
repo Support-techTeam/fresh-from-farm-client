@@ -8,13 +8,16 @@ import moment from 'moment';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 
-function FabRoundedTooltipsRight() {
+function FabRoundedTooltipsRight({ product }) {
   return (
     <>
       {/*<!-- Component: Right sided fab button with tooltips --> */}
       <div className="absolute bottom-6 right-0 bg-[#fff5dc] hover:rounded-tl-lg rounded-bl-lg rounded-tl-lg">
         <div className="group flex flex-col-reverse w-10 hover:rounded-tl-lg">
-          <button className="group rounded-bl-lg rounded-tl-lg hover:rounded-tl-none relative z-50 inline-flex h-10 w-10 items-center justify-center gap-2 self-center whitespace-nowrap bg-emerald-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none base-orange">
+          <button
+            className="group rounded-bl-lg rounded-tl-lg hover:rounded-tl-none relative z-50 inline-flex h-10 w-10 items-center justify-center gap-2 self-center whitespace-nowrap bg-emerald-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none base-orange"
+            disabled={product?.availiableQty <= 0}
+          >
             <span className="relative transition duration-300 only:-mx-6">
               <span className="sr-only">Button description</span>
               <img
@@ -237,7 +240,7 @@ const GridViewProducts = ({
                   : true
               }
             />
-            <FabRoundedTooltipsRight />
+            <FabRoundedTooltipsRight product={product} />
           </Item>
         ))
       ) : (

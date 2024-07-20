@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import { Button, IconButton, Typography } from '@material-tailwind/react';
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import NumberInput from '../common/NumberInput';
+import BaseDirectories from '../../base_directory/BaseDirectory';
 function FabRoundedTooltipsTopRight({
   discount,
   productPost,
@@ -66,14 +67,14 @@ const ListViewProducts = ({
             display="flex"
             alignItems="center"
             justifyContent={'center'}
-            className="w-full"
+            className="w-full h-auto"
             key={index}
             component="section"
             my={1}
           >
             <Item
               elevation={0}
-              className=" border-gray-200 hover:border-[#C0DA71] hover:border-[0.28px] md:mx-2 px-0 py-2"
+              className="border-gray-200 hover:border-[#C0DA71] hover:border-[0.28px] md:mx-2 px-0 py-2 h-full"
             >
               <div className="mx-auto flex flex-wrap md:flex-nowrap px-2 gap-4">
                 <Link
@@ -191,37 +192,45 @@ const ListViewProducts = ({
                     <Typography className="!mt-4 text-sm font-normal leading-[27px] !text-gray-500 ">
                       {product.description}
                     </Typography>
-                    <div className="flex flex-row my-4">
-                      <div className="flex flex-row w-full items-center gap-1 ">
-                        <dt className="sr-only">Size</dt>
-                        <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                    <div className="flex md:flex-row flex-col my-6 gap-6 md:gap-0">
+                      <div className="flex flex-row w-full items-center gap-6 md:gap-1">
+                        <Typography className="sr-only">Size</Typography>
+                        <p className="text-sm text-gray-500 cursor-default item-price-per-qty">
                           Size:{' '}
                           <span className="text-gray-700">{product.size}</span>
-                        </dd>
+                        </p>
                       </div>
-                      <div className="flex flex-row w-full items-center gap-1">
-                        <dt className="sr-only">Origin</dt>
-                        <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                      <div className="flex flex-row w-full items-center gap-6 md:gap-1">
+                        <Typography className="sr-only">Origin</Typography>
+                        <p className="text-sm text-gray-500 cursor-default item-price-per-qty">
                           Origin:{' '}
                           <span className="text-gray-700">
                             {product.origin}
                           </span>
-                        </dd>
+                        </p>
                       </div>
-                      <div className="flex flex-row w-full items-center gap-1">
-                        <dt className="sr-only">Product Code</dt>
-                        <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
+                      <div className="flex flex-row w-full items-center gap-6 md:gap-1">
+                        <Typography className="sr-only">
+                          Product Code
+                        </Typography>
+                        <p className="text-sm text-gray-500 cursor-default item-price-per-qty">
                           Product Code:{' '}
                           <span className="text-gray-700">
                             {product.product_code}
                           </span>
-                        </dd>
+                        </p>
                       </div>
                     </div>
-                    <div className="mb-4 flex w-full items-center gap-3">
+                    <div className="mb-4 flex flex-wrap w-full items-center gap-3">
                       <NumberInput min={1} max={product?.availiableQty} />
-                      <Button className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto">
-                        <ShoppingCartIcon className="h-6 w-6" />
+                      <Button
+                        className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto"
+                        disabled={product?.availiableQty <= 0}
+                      >
+                        <img
+                          src={`${BaseDirectories.LOGOS_DIR}/mini_cart.svg`}
+                          alt="cart"
+                        />
                         Add to Cart
                       </Button>
                       <IconButton

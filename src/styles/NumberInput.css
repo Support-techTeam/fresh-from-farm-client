@@ -3,15 +3,15 @@
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 25px;
-    padding: 5px 10px;
+    padding: 4px 10px;
     background-color: #f9f9f9;
   }
   
   .number-input button {
-    background-color: #fff;
+    background-color: #fff/50;
     border: none;
     color: #555;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     padding: 5px 10px;
     user-select: none;
@@ -24,6 +24,6 @@
   
   .number-input span {
     margin: 0 10px;
-    font-size: 18px;
+    font-size: 16px;
   }
   
