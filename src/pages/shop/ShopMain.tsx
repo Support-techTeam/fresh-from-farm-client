@@ -591,7 +591,7 @@ const MainSection = () => {
     setActiveFilters(activeFilters.filter((f) => f !== filter));
   };
 
-  const filterProducts = (range) => {
+  const filterProducts = (range: any) => {
     const filtered = products.filter((product) => {
       const price = Number(product.price);
       const isInPriceRange = price >= range[0] && price <= range[1];

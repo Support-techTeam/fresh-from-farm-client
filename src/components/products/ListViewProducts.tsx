@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
@@ -11,6 +11,8 @@ import { Button, IconButton, Typography } from '@material-tailwind/react';
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import NumberInput from '../common/NumberInput';
 import BaseDirectories from '../../base_directory/BaseDirectory';
+import { useCart } from '../../context/CartContext';
+import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 function FabRoundedTooltipsTopRight({
   discount,
   productPost,
@@ -53,11 +55,73 @@ const ListViewProducts = ({
 }) => {
   const theme = useTheme();
 
+  const {
+    cart,
+    totalQuantity,
+    addItem,
+    updateItemQuantity,
+    removeItem,
+    clearCart,
+  } = useCart();
+
+  const [quantity, setQuantity] = useState(1);
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     color: theme.palette.text.primary,
   }));
+
+  const handleIncrement = (value: any) => {
+    const item = cart.find((item) => item.id === value.id);
+    const availableTotal = value?.availiableQty;
+
+    if (item) {
+      const totalAvailableQuantity = value.availiableQty - item.quantity;
+
+      if (totalAvailableQuantity > quantity) {
+        setQuantity((prevQuantity) => prevQuantity + 1);
+      }
+    } else {
+      if (availableTotal > quantity) {
+        setQuantity((prevQuantity) => prevQuantity + 1);
+      }
+    }
+  };
+
+  const handleDecrement = (value: any) => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => Math.max(0, prevQuantity - 1));
+    }
+
+    const item = cart.find((item) => item.id === value.id);
+    const availableTotal = value?.availiableQty;
+
+    if (item) {
+      if (item.quantity > 1) {
+        setQuantity((prevQuantity) => Math.max(0, prevQuantity - 1));
+      }
+    } else {
+      if (quantity > 1) {
+        setQuantity((prevQuantity) => Math.max(0, prevQuantity - 1));
+      }
+    }
+  };
+
+  const handleAddItem = (newProduct: any) => {
+    const item = cart.find((item) => item.id === newProduct.id);
+    const availableTotal = newProduct?.availiableQty;
+    if (item) {
+      const totalAvailableQuantity = newProduct.availiableQty - item.quantity;
+      if (totalAvailableQuantity > quantity) {
+        addItem(newProduct, quantity);
+      }
+    } else {
+      if (availableTotal > quantity) {
+        addItem(newProduct, quantity);
+      }
+    }
+  };
 
   return (
     <>
@@ -222,10 +286,49 @@ const ListViewProducts = ({
                       </div>
                     </div>
                     <div className="mb-4 flex flex-wrap w-full items-center gap-3">
-                      <NumberInput min={1} max={product?.availiableQty} />
+                      <div className="flex items-center justify-between md:justify-end border-[0.5px] border-gray-300 rounded-[44.12px] px-2 py-1">
+                        <div className="flex items-center">
+                          <IconButton
+                            variant="text"
+                            size="sm"
+                            onClick={() => handleDecrement(product)}
+                            disabled={quantity === 1}
+                          >
+                            <MinusIcon
+                              className="h-4 w-4 font-bold"
+                              color="black"
+                            />
+                          </IconButton>
+                          <input
+                            type="text"
+                            id="counter-input-2"
+                            data-input-counter
+                            className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
+                            placeholder=""
+                            defaultValue={1}
+                            value={quantity}
+                          />
+                          <IconButton
+                            variant="text"
+                            size="sm"
+                            onClick={() => handleIncrement(product)}
+                            // disabled={availableTotal <= 0}
+                          >
+                            <PlusIcon
+                              className="h-4 w-4 font-bold"
+                              color="black"
+                            />
+                          </IconButton>
+                        </div>
+                      </div>
                       <Button
-                        className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto"
+                        className={`${
+                          product?.availiableQty > 0
+                            ? 'bg-[#A4BC46]'
+                            : 'bg-gray-300'
+                        } rounded-[44.12px] flex items-center gap-2 w-auto`}
                         disabled={product?.availiableQty <= 0}
+                        onClick={() => handleAddItem(product)}
                       >
                         <img
                           src={`${BaseDirectories.LOGOS_DIR}/mini_cart.svg`}
@@ -233,13 +336,6 @@ const ListViewProducts = ({
                         />
                         Add to Cart
                       </Button>
-                      <IconButton
-                        color="gray"
-                        variant="text"
-                        className="shrink-0"
-                      >
-                        <HeartIcon className="h-6 w-6" />
-                      </IconButton>
                     </div>
                   </div>
                 </div>

@@ -1,14 +1,34 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/shop.css';
 import { Link } from 'react-router-dom';
 import BaseDirectories from '../../base_directory/BaseDirectory';
 import moment from 'moment';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import { useCart } from '../../context/CartContext';
 
 function FabRoundedTooltipsRight({ product }) {
+  const { cart, addItem } = useCart();
+
+  const handleAddItem = () => {
+    const item = cart.find((item) => item.id === product.id);
+    let availableTotal = product?.availiableQty;
+    if (item) {
+      availableTotal =
+        product?.availiableQty -
+          cart.find((cartItem) => cartItem.id === product.id)?.quantity || 0;
+      if (product.name.trim() !== '' && availableTotal > 0) {
+        addItem(product, 1);
+      }
+    } else {
+      if (product.name.trim() !== '' && availableTotal > 0) {
+        addItem(product, 1);
+      }
+    }
+  };
+
   return (
     <>
       {/*<!-- Component: Right sided fab button with tooltips --> */}
@@ -17,6 +37,7 @@ function FabRoundedTooltipsRight({ product }) {
           <button
             className="group rounded-bl-lg rounded-tl-lg hover:rounded-tl-none relative z-50 inline-flex h-10 w-10 items-center justify-center gap-2 self-center whitespace-nowrap bg-emerald-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none base-orange"
             disabled={product?.availiableQty <= 0}
+            onClick={handleAddItem}
           >
             <span className="relative transition duration-300 only:-mx-6">
               <span className="sr-only">Button description</span>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   Breadcrumbs,
@@ -14,12 +14,15 @@ import BaseDirectories from '../../base_directory/BaseDirectory';
 import moment from 'moment';
 import NumberInput from '../../components/common/NumberInput';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { XCircleIcon } from '@heroicons/react/20/solid';
+import { MinusIcon, XCircleIcon, PlusIcon } from '@heroicons/react/20/solid';
 import ShoppingProcess from '../../components/shop/ShoppingProcess';
 import ShoppingBannerSection from '../../components/shop/Banner';
 import RelatedProductList from '../../components/shop/RelatedProductList';
 import { Rating } from '@material-tailwind/react';
 import usePersistentCart from '../../hooks/usePersistentCart';
+import { useCart } from '../../context/CartContext';
+import TextField from '@mui/material/TextField';
+import { Box } from '@mui/material';
 
 const products = [
   {
@@ -476,12 +479,25 @@ const ProductDetails = () => {
   const location = useLocation();
   const product = location.state || {};
   const [open, setOpen] = useState('description');
-  const { cart, addItem, updateItemQuantity, removeItem, clearCart } =
-    usePersistentCart();
+  const [quantity, setQuantity] = useState(1);
+  const [availableTotal, setAvailableTotal] = useState(
+    product?.availiableQty ? product?.availiableQty : 0,
+  );
+  // let availableTotal = product?.availiableQty ? product?.availiableQty : 0;
+  const {
+    cart,
+    totalQuantity,
+    addItem,
+    updateItemQuantity,
+    removeItem,
+    clearCart,
+  } = useCart();
+
   const handleAddItem = (newProduct: any) => {
-    console.debug(cart);
-    if (newProduct.name.trim() !== '') {
-      addItem({ ...newProduct, quantity: 1 });
+    if (newProduct.name.trim() !== '' && availableTotal > 0) {
+      addItem(newProduct, quantity);
+      handleQuantityChange(quantity);
+      setQuantity(1);
     }
   };
 
@@ -579,6 +595,42 @@ const ProductDetails = () => {
         </div>
       </div>
     );
+  };
+
+  useEffect(() => {
+    const item = cart.find((item) => item.id === product.id);
+    if (item) {
+      const totalAvailableQuantity = product.availiableQty - item.quantity;
+      setAvailableTotal(totalAvailableQuantity);
+    } else {
+      setAvailableTotal(product?.availiableQty ? product?.availiableQty : 0);
+    }
+  }, [product, cart, totalQuantity, addItem, availableTotal]);
+
+  const handleIncrement = () => {
+    if (availableTotal > quantity) {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => Math.max(0, prevQuantity - 1));
+    }
+  };
+
+  const handleQuantityChange = (event: any) => {
+    const newValue = parseInt(event);
+    const item = cart.find((item) => item.id === product.id);
+    if (item) {
+      const totalAvailableQuantity = product.availiableQty - item.quantity;
+      setAvailableTotal(totalAvailableQuantity);
+      if (newValue >= 1 && newValue <= totalAvailableQuantity) {
+        setQuantity(newValue);
+      }
+    } else {
+      setAvailableTotal(product?.availiableQty ? product?.availiableQty : 0);
+    }
   };
 
   return (
@@ -762,10 +814,113 @@ const ProductDetails = () => {
                 </div>
               </div>
               <div className="mb-4 flex flex-wrap w-full items-center gap-3">
-                <NumberInput min={1} max={product?.availiableQty} />
+                {/* <Box display="flex" alignItems="center">
+                  <IconButton onClick={handleDecrement}>-</IconButton>
+                  <TextField
+                    id="outlined-number"
+                    type="number"
+                    value={quantity}
+                    // onChange={handleQuantityChange}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      min: 1,
+                      max: availableTotal
+                        ? availableTotal
+                        : product?.availiableQty,
+                      style: { textAlign: 'center' },
+                    }}
+                    sx={{
+                      width: '60px',
+                      '& .MuiInputBase-root': {
+                        borderRadius: '4px',
+                        fontSize: '16px',
+                        textAlign: 'center',
+                      },
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#ccc',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#888',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#333',
+                      },
+                    }}
+                  />
+                  <IconButton onClick={handleIncrement}>+</IconButton>
+                </Box> */}
+                {/* <TextField
+                  id="outlined-number"
+                  type="number"
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    min: 1,
+                    max: availableTotal
+                      ? availableTotal
+                      : product?.availiableQty,
+                    style: {
+                      textAlign: 'center',
+                      height: '20px',
+                      border: 'none',
+                    },
+                  }}
+                  sx={{
+                    width: '100px',
+                    '& .MuiInputBase-root': {
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#ccc',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#888',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#333',
+                    },
+                  }}
+                /> */}
+
+                <div className="flex items-center justify-between md:justify-end border-[0.5px] border-gray-300 rounded-[44.12px] px-2 py-1">
+                  <div className="flex items-center">
+                    <IconButton
+                      variant="text"
+                      size="sm"
+                      onClick={handleDecrement}
+                      disabled={quantity === 1}
+                    >
+                      <MinusIcon className="h-4 w-4 font-bold" color="black" />
+                    </IconButton>
+                    <input
+                      type="text"
+                      id="counter-input-2"
+                      data-input-counter
+                      className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
+                      placeholder=""
+                      value={quantity}
+                    />
+                    <IconButton
+                      variant="text"
+                      size="sm"
+                      onClick={handleIncrement}
+                      disabled={availableTotal <= 0}
+                    >
+                      <PlusIcon className="h-4 w-4 font-bold" color="black" />
+                    </IconButton>
+                  </div>
+                </div>
                 <Button
-                  className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto"
-                  disabled={product?.availiableQty <= 0}
+                  className={`${
+                    availableTotal > 0 ? 'bg-[#A4BC46]' : 'bg-gray-300'
+                  } rounded-[44.12px] flex items-center gap-2 w-auto`}
+                  disabled={availableTotal <= 0}
                   onClick={() => handleAddItem(product)}
                 >
                   {/* <ShoppingCartIcon className="h-6 w-6" /> */}
