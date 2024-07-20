@@ -8,10 +8,11 @@ import {
   IconButton,
   Typography,
 } from '@material-tailwind/react';
-import { HeartIcon } from '@heroicons/react/24/outline';
+import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { Link, useLocation } from 'react-router-dom';
 import BaseDirectories from '../../base_directory/BaseDirectory';
 import moment from 'moment';
+import NumberInput from '../../components/common/NumberInput';
 
 function FabRoundedTooltipsTopRight({
   discount,
@@ -128,7 +129,7 @@ const ProductDetails = () => {
         </div>
         <section className="py-16 px-8">
           <div className="mx-auto container grid place-items-center grid-cols-1 md:grid-cols-2">
-            <div className="relative border border-white hover:border-[#C0DA71] hover:border-[1.58px] rounded-lg p-0">
+            <div className="relative border border-white rounded-lg p-0">
               <img
                 alt=""
                 src={product.imageSrc}
@@ -260,8 +261,10 @@ const ProductDetails = () => {
                 </div>
                 {/* <!-- shipping notice - end --> */}
               </div>
-              <div className="mb-4 flex w-full items-center gap-3 md:w-1/2 ">
-                <Button color="gray" className="w-52">
+              <div className="mb-4 flex w-full items-center gap-3">
+                <NumberInput min={1} max={product?.availiableQty} />
+                <Button className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto">
+                  <ShoppingCartIcon className="h-6 w-6" />
                   Add to Cart
                 </Button>
                 <IconButton color="gray" variant="text" className="shrink-0">

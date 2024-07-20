@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -6,7 +8,8 @@ import Box from '@mui/material/Box';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Button, IconButton, Typography } from '@material-tailwind/react';
-import { HeartIcon } from '@heroicons/react/24/outline';
+import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import NumberInput from '../common/NumberInput';
 function FabRoundedTooltipsTopRight({
   discount,
   productPost,
@@ -70,40 +73,54 @@ const ListViewProducts = ({
           >
             <Item
               elevation={0}
-              className=" border-gray-200 hover:border-[#C0DA71] hover:border-[1.58px] md:mx-2 px-0 py-2"
+              className=" border-gray-200 hover:border-[#C0DA71] hover:border-[0.28px] md:mx-2 px-0 py-2"
             >
               <div className="mx-auto flex flex-wrap md:flex-nowrap px-2 gap-4">
-                <div className="flex items-center mx-auto relative">
-                  <img
-                    alt="product-image"
-                    className="max-h-[340px] min-h-[240px] md:h-3/5 lg:h-[340px] w-auto object-fit object-center rounded-lg py-2"
-                    src={product.imageSrc}
-                  />
-                  <FabRoundedTooltipsTopRight
-                    discount={
-                      product?.discount && Number(product?.discount) > 0
-                        ? Number(product?.discount)
-                        : 0
-                    }
-                    productPost={
-                      product?.updatedAt &&
-                      moment(moment(new Date()).format('YYYY-MM-DD')).diff(
-                        moment(moment(product?.updatedAt).format('YYYY-MM-DD')),
-                        'days',
-                      ) > 4
-                        ? false
-                        : true
-                    }
-                  />
-                </div>
+                <Link
+                  to={`/shop/product/${product.name}`}
+                  state={product}
+                  className="block cursor-pointer"
+                >
+                  <div className="flex items-center mx-auto relative">
+                    <img
+                      alt="product-image"
+                      className="max-h-[340px] min-h-[240px] md:h-3/5 lg:h-[340px] w-auto object-fit object-center rounded-lg py-2"
+                      src={product.imageSrc}
+                    />
+                    <FabRoundedTooltipsTopRight
+                      discount={
+                        product?.discount && Number(product?.discount) > 0
+                          ? Number(product?.discount)
+                          : 0
+                      }
+                      productPost={
+                        product?.updatedAt &&
+                        moment(moment(new Date()).format('YYYY-MM-DD')).diff(
+                          moment(
+                            moment(product?.updatedAt).format('YYYY-MM-DD'),
+                          ),
+                          'days',
+                        ) > 4
+                          ? false
+                          : true
+                      }
+                    />
+                  </div>
+                </Link>
                 <div className="lg:w-1/2 w-full lg:pl-10 lg:py-0 mt-0 lg:mt-0">
                   <div>
-                    <div className="my-4 item-name">
-                      <dt className="sr-only">name</dt>
-                      <dd className="font-medium cursor-default">
-                        {product.name}
-                      </dd>
-                    </div>
+                    <Link
+                      to={`/shop/product/${product.name}`}
+                      state={product}
+                      className="block cursor-pointer"
+                    >
+                      <div className="my-4 item-name">
+                        <dt className="sr-only">name</dt>
+                        <dd className="font-medium cursor-default">
+                          {product.name}
+                        </dd>
+                      </div>
+                    </Link>
                     <div className="my-4">
                       <dt className="sr-only">Price/Qty</dt>
                       <dd className="text-sm text-gray-500 cursor-default item-price-per-qty">
@@ -201,8 +218,10 @@ const ListViewProducts = ({
                         </dd>
                       </div>
                     </div>
-                    <div className="mb-4 flex w-full items-center gap-3 md:w-1/2 ">
-                      <Button color="gray" className="w-52">
+                    <div className="mb-4 flex w-full items-center gap-3">
+                      <NumberInput min={1} max={product?.availiableQty} />
+                      <Button className="bg-[#A4BC46] rounded-[44.12px] flex items-center gap-2 w-auto">
+                        <ShoppingCartIcon className="h-6 w-6" />
                         Add to Cart
                       </Button>
                       <IconButton
