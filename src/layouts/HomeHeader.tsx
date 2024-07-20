@@ -7,6 +7,7 @@ import {
   IconButton,
   List,
   ListItem,
+  Badge,
 } from '@material-tailwind/react';
 import {
   Bars3Icon,
@@ -30,6 +31,7 @@ import { NavListMenu } from '../components/navbar/NavLinkMany';
 import { ProfileMenu } from '../components/navbar/Avatar';
 import Login from '../pages/authentication/Login';
 import Registration from '../pages/authentication/Registration';
+import { useCart } from '../context/CartContext';
 // eslint-disable-next-line
 const navListShopItems = [
   {
@@ -182,7 +184,7 @@ export function HomeHeader() {
   const [openNav, setOpenNav] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
-
+  const { totalQuantity } = useCart();
   useEffect(() => {
     window.addEventListener(
       'resize',
@@ -247,10 +249,17 @@ export function HomeHeader() {
             <IconButton variant="text" color="black">
               <HeartIcon className="h-5 w-5" />
             </IconButton>
-            <Link to="/cart">
-              <IconButton variant="text" color="black">
-                <ShoppingCartIcon className="h-5 w-5" />
-              </IconButton>
+            <Link to="/cart" className="flex justify-center items-center">
+              <Badge
+                content={totalQuantity}
+                withBorder
+                className="px-2 bg-amber-500 border-0 text-white mt-1"
+                color="amber"
+              >
+                <IconButton variant="text">
+                  <ShoppingCartIcon className="h-5 w-5" />
+                </IconButton>
+              </Badge>
             </Link>
           </div>
           <IconButton
@@ -288,10 +297,17 @@ export function HomeHeader() {
             <IconButton variant="text" color="black">
               <HeartIcon className="h-5 w-5" />
             </IconButton>
-            <Link to="/cart">
-              <IconButton variant="text" color="black">
-                <ShoppingCartIcon className="h-5 w-5" />
-              </IconButton>
+            <Link to="/cart" className="flex justify-center items-center">
+              <Badge
+                content={totalQuantity}
+                withBorder
+                className="px-2 bg-amber-500 border-0 text-white mt-1"
+                color="amber"
+              >
+                <IconButton variant="text">
+                  <ShoppingCartIcon className="h-5 w-5" />
+                </IconButton>
+              </Badge>
             </Link>
           </div>
         </Collapse>
