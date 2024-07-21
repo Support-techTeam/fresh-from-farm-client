@@ -7,6 +7,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { StoreProvider } from './context/StoreContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -22,7 +23,9 @@ if (canonicalUrl) {
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <App />
+      <StoreProvider>
+        <App />
+      </StoreProvider>
     </HelmetProvider>
   </React.StrictMode>,
 );
