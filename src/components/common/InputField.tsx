@@ -10,6 +10,7 @@ const InputField = ({
   labelClasses,
   required,
   props,
+  onChange,
 }: any) => {
   const [showPassword, setShowPassword] = React.useState(false);
   return (
@@ -20,6 +21,7 @@ const InputField = ({
         placeholder={placeholder}
         className={`peer relative h-10 w-full z-10 rounded border border-green-500 px-4 text-sm text-slate-500 focus:placeholder-transparent outline-none transition-all invalid:border-pink-500 invalid:text-pink-500 focus:border-green-700 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400  ${classess}`}
         {...props}
+        onChange={onChange}
       />
 
       <label

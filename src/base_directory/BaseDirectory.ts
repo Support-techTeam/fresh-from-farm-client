@@ -6,6 +6,8 @@ const BaseDirectories = {
 
   APP_ENV: process.env.REACT_APP_ENV,
 
+  BASE_API_URL: process.env.REACT_APP_API_BASEURL,
+
   /**
    * The base URL of the Server API
    */

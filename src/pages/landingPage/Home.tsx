@@ -1,8 +1,6 @@
 import React from 'react';
 import '../../styles/home.css';
 import { Helmet } from 'react-helmet-async';
-// import { FooterMain } from '../../layouts/Footer';
-// import { MainNavBar } from '../../layouts/Header';
 import HeroSection from '../../components/home/HeroSection';
 import ProductOfTheDay from '../../components/home/ProductOfDay';
 import CategoryListConponent from '../../components/home/CategoryList';
