@@ -25,6 +25,11 @@ interface userRegistration {
   };
 }
 
+interface userLogin {
+  email: string;
+  password: string;
+}
+
 export class AuthStore {
   authenticated = false;
   loading = false;
@@ -59,8 +64,8 @@ export class AuthStore {
     axios
       .post(`${BaseDirectories.BASE_API_URL}/users/user-sign-up`, data)
       .then((apiResponse: any) => {
-        console.debug(apiResponse, 'apiResponse');
-        console.debug(apiResponse.data, 'apiResponse.data');
+        // console.debug(apiResponse, 'apiResponse');
+        // console.debug(apiResponse.data, 'apiResponse.data');
         if (apiResponse.data?.error === true) {
           apiResponse.data?.message
             ? toast.error(apiResponse.data?.message)
@@ -101,16 +106,57 @@ export class AuthStore {
       });
   }
 
-  loginUser(email: string, password: string) {
+  loginUser(data: userLogin) {
+    this.setSubmitting(true);
     axios
-      .post(`${BaseDirectories.BASE_API_URL}/user-sign-up`)
+      .post(`${BaseDirectories.BASE_API_URL}/users/login`, data)
       .then((apiResponse: any) => {
+        if (apiResponse.data?.error === true) {
+          apiResponse.data?.message
+            ? toast.error(apiResponse.data?.message)
+            : 'Login Failed, Please try again!';
+          if (
+            apiResponse.data?.message ===
+            'Email has not been verified, check your email for verification token to proceed to login'
+          ) {
+            this.setUser(apiResponse.data?.user);
+            runInAction(() => {
+              this.setMessage(
+                'error',
+                'Email has not been verified, check your email for verification token to proceed to login',
+              );
+            });
+            console.debug(apiResponse.data.user, 'apiResponse.data.user');
+          } else {
+            runInAction(() => {
+              this.setMessage('error', 'Login Failed, Please try again!');
+            });
+          }
+        } else if (apiResponse.data?.error === false) {
+          apiResponse.data?.message
+            ? toast.success(apiResponse.data?.message)
+            : 'Login Successful';
+          runInAction(() => {
+            this.setMessage('success', 'Login Successful');
+            this.setUser(apiResponse.data?.user);
+          });
+        }
         // TODO: Add success message
       })
       .catch((apiError: any) => {
+        toast.error('Login Failed, Please try again!');
+        runInAction(() => {
+          this.setMessage('error', 'Login Failed, Please try again!');
+        });
         // TODO: Add error message
       })
       .finally(() => {
+        runInAction(() => {
+          this.setSubmitting(false);
+          setTimeout(() => {
+            this.setMessage('', '');
+          }, 3000);
+        });
         // TODO: Add finally
       });
   }

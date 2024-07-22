@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useRef } from 'react';
 import '../../styles/authentication.css';
 import { Modal } from 'flowbite-react';
@@ -41,6 +43,7 @@ const Registration: React.FC<RegistrationProps> = ({
 }) => {
   const { authStore } = useStore();
   const { message, submitting } = authStore;
+  const [isDisabled, setIsDisabled] = useState(true);
   const [userDetails, setUserDetails] = useState<UserDetails>({
     firstName: '',
     lastName: '',
@@ -105,24 +108,31 @@ const Registration: React.FC<RegistrationProps> = ({
   useEffect(() => {
     if (
       message.type === 'error' &&
-      message.msg !== 'Registration Failed, Please try again!'
+      message.msg === 'Registration Failed, Please try again!'
     ) {
-      toast.error(message.msg);
+      // toast.error(message.msg);
     } else if (
       message.type === 'success' &&
-      message.msg !== 'Registration Successful, Proceed to login'
+      message.msg === 'Registration Successful, Proceed to login'
     ) {
       toggleModal();
       toggleLoginModal();
     }
   }, [message.type, message.msg]);
 
-  const isDisabled =
-    userDetails.firstName === '' ||
-    userDetails.email === '' ||
-    userDetails.password === '' ||
-    userDetails.confirmPassword === '' ||
-    userDetails.lastName === '';
+  useEffect(() => {
+    const areUserDetailsIncomplete = (details) => {
+      return (
+        details.firstName === '' ||
+        details.lastName === '' ||
+        details.email === '' ||
+        details.password === '' ||
+        details.confirmPassword === ''
+      );
+    };
+
+    setIsDisabled(areUserDetailsIncomplete(userDetails));
+  }, [userDetails]);
 
   if (!isOpen) return null;
 
