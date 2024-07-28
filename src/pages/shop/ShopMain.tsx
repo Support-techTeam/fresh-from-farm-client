@@ -32,6 +32,7 @@ import {
 import ListViewProducts from '../../components/products/ListViewProducts';
 import Slider from '@mui/material/Slider';
 import GridViewProducts from '../../components/products/GridViewProducts';
+import { useUser } from '../../context/UserContext';
 
 const products = [
   {
@@ -501,6 +502,7 @@ const MainSection = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * pageSize;
   const [filteredProducts, setFilteredProducts] = useState(products);
+  const { user } = useUser();
 
   const handlePriceChange = (
     event: Event,
@@ -539,6 +541,7 @@ const MainSection = () => {
     }
   };
 
+  console.debug('user', user);
   // Handle arrival status filter change
   const handleArrivalStatusChange = (statusName) => {
     setSelectedArrivalStatus((prevArrivalStatus) => {

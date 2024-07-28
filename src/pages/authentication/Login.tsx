@@ -78,7 +78,6 @@ const Login: React.FC<LoginProps> = ({
       message.msg ===
         'Email has not been verified, check your email for verification token to proceed to login'
     ) {
-      console.debug('Here');
       toggleModal();
       navigate('/email-verification');
       // Redirect to email verification page

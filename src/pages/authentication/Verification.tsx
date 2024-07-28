@@ -7,11 +7,15 @@ import InputField from '../../components/common/InputField';
 import { observer } from 'mobx-react-lite';
 import { SimpleFooter } from '../../layouts/SimpleFooter';
 import { useStore } from '../../context/StoreContext';
+import { toJS } from 'mobx';
+import { useUser } from '../../context/UserContext';
+import Spinner from '../../components/common/Spinner';
 
 const EmailVerification = () => {
+  const { user } = useUser();
   const [otpDetails, setOtpDetails] = useState({
-    otp: '',
     email: '',
+    token: '',
   });
   const [isDisabled, setIsDisabled] = useState(true);
   const { authStore } = useStore();
@@ -25,8 +29,15 @@ const EmailVerification = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle OTP submission logic here
-    // console.debug(`Submitted OTP: ${otp}`);
+    if (user.email) {
+      {
+        const verifyData = {
+          email: user.email,
+          token: otpDetails.token,
+        };
+        authStore.verifyUser(verifyData);
+      }
+    }
   };
 
   const handleResend = (e: any) => {
@@ -35,27 +46,17 @@ const EmailVerification = () => {
 
   useEffect(() => {
     if (
-      message.type === 'error' &&
-      message.msg === 'Login Failed, Please try again!'
-    ) {
-      // toast.error(message.msg);
-    } else if (
-      message.type === 'error' &&
-      message.msg ===
-        'Email has not been verified, check your email for verification token to proceed to login'
-    ) {
-      // Redirect to email verification page
-    } else if (
       message.type === 'success' &&
-      message.msg === 'Login Successful'
+      message.msg === 'Verification Successful'
     ) {
+      navigate('/shop');
       //  TODO: Redirect to home page
     }
   }, [message.type, message.msg]);
 
   useEffect(() => {
     const areUserDetailsIncomplete = (details: any) => {
-      return details.otp === '' || details.email === '';
+      return details.otp === '';
     };
 
     setIsDisabled(areUserDetailsIncomplete(otpDetails));
@@ -65,6 +66,7 @@ const EmailVerification = () => {
     <>
       {/* <HomeHeader /> */}
       <main className="overflow-x-hidden">
+        <Spinner isLoading={submitting} />
         <section className="bg-gray-100 py-20 dark:bg-dark lg:py-[120px]">
           <div className="container mx-auto">
             <div className="-mx-4 flex flex-wrap justify-center">
@@ -88,13 +90,13 @@ const EmailVerification = () => {
                     <div className="relative my-6">
                       <InputField
                         type="text"
-                        name="otp"
+                        name="token"
                         label="Enter OTP"
                         placeholder="Enter OTP"
                         classess="rounded-full h-12"
                         labelClasses=""
                         required={true}
-                        value={otpDetails.otp}
+                        value={otpDetails.token}
                         onChange={handleOtpChange}
                       />
                     </div>
@@ -118,7 +120,7 @@ const EmailVerification = () => {
                       type="submit"
                       onClick={handleResend}
                     />
-                  </div>
+                  </div>{' '}
                 </div>
               </div>
             </div>

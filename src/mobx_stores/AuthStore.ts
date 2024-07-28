@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { configure, makeAutoObservable, runInAction } from 'mobx';
-import RootStore from './RootStore';
 import axios from 'axios';
 import BaseDirectories from '../base_directory/BaseDirectory';
 import { toast } from 'react-toastify';
+import { useUser, UserContextType, UserProvider } from '../context/UserContext';
+import { RootStore } from './RootStore';
 
 configure({ enforceActions: 'always' });
 
@@ -30,6 +31,11 @@ interface userLogin {
   password: string;
 }
 
+interface verifyData {
+  email: string;
+  token: string;
+}
+
 export class AuthStore {
   authenticated = false;
   loading = false;
@@ -44,11 +50,13 @@ export class AuthStore {
     type: '',
     msg: '',
   };
-  rootStore: typeof RootStore;
+  rootStore: RootStore;
+  userContext: UserContextType;
 
-  constructor(rootStore: typeof RootStore) {
-    this.rootStore = rootStore;
+  constructor(rootStore: RootStore, userContext: UserContextType) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
+    this.userContext = userContext;
   }
 
   isAuthenticated() {
@@ -111,6 +119,7 @@ export class AuthStore {
     axios
       .post(`${BaseDirectories.BASE_API_URL}/users/login`, data)
       .then((apiResponse: any) => {
+        // console.debug(apiResponse.data.data.user, 'apiResponse.data.user');
         if (apiResponse.data?.error === true) {
           apiResponse.data?.message
             ? toast.error(apiResponse.data?.message)
@@ -126,7 +135,6 @@ export class AuthStore {
                 'Email has not been verified, check your email for verification token to proceed to login',
               );
             });
-            console.debug(apiResponse.data.user, 'apiResponse.data.user');
           } else {
             runInAction(() => {
               this.setMessage('error', 'Login Failed, Please try again!');
@@ -138,7 +146,7 @@ export class AuthStore {
             : 'Login Successful';
           runInAction(() => {
             this.setMessage('success', 'Login Successful');
-            this.setUser(apiResponse.data?.user);
+            this.setUser(apiResponse.data.data.user);
           });
         }
         // TODO: Add success message
@@ -147,6 +155,47 @@ export class AuthStore {
         toast.error('Login Failed, Please try again!');
         runInAction(() => {
           this.setMessage('error', 'Login Failed, Please try again!');
+        });
+        // TODO: Add error message
+      })
+      .finally(() => {
+        runInAction(() => {
+          this.setSubmitting(false);
+          setTimeout(() => {
+            this.setMessage('', '');
+          }, 3000);
+        });
+        // TODO: Add finally
+      });
+  }
+
+  verifyUser(data: verifyData) {
+    this.setSubmitting(true);
+    axios
+      .post(`${BaseDirectories.BASE_API_URL}/users/verify-email`, data)
+      .then((apiResponse: any) => {
+        if (apiResponse.data?.error === true) {
+          apiResponse.data?.message
+            ? toast.error(apiResponse.data?.message)
+            : 'Verification Failed, Please try again!';
+          runInAction(() => {
+            this.setMessage('error', 'Verification Failed, Please try again!');
+          });
+        } else if (apiResponse.data?.error === false) {
+          apiResponse.data?.message
+            ? toast.success(apiResponse.data?.message)
+            : 'Verification Successful';
+          runInAction(() => {
+            this.setMessage('success', 'Verification Successful');
+            this.setUser(apiResponse.data.data);
+          });
+        }
+        // TODO: Add success message
+      })
+      .catch((apiError: any) => {
+        toast.error('Verification Failed, Please try again!');
+        runInAction(() => {
+          this.setMessage('error', 'Verification Failed, Please try again!');
         });
         // TODO: Add error message
       })
@@ -177,6 +226,7 @@ export class AuthStore {
 
   setUser = (res: any) => {
     this.user = res;
+    this.userContext.login(res);
   };
 
   setLoading = (val: boolean) => {
