@@ -129,6 +129,7 @@ export class AuthStore {
             'Email has not been verified, check your email for verification token to proceed to login'
           ) {
             this.setUser(apiResponse.data?.user);
+            this.userContext.login(apiResponse.data?.user);
             runInAction(() => {
               this.setMessage(
                 'error',
@@ -147,6 +148,8 @@ export class AuthStore {
           runInAction(() => {
             this.setMessage('success', 'Login Successful');
             this.setUser(apiResponse.data.data.user);
+
+            this.userContext.login(apiResponse.data.data?.user);
           });
         }
         // TODO: Add success message
@@ -188,6 +191,7 @@ export class AuthStore {
           runInAction(() => {
             this.setMessage('success', 'Verification Successful');
             this.setUser(apiResponse.data.data);
+            this.userContext.login(apiResponse.data?.user);
           });
         }
         // TODO: Add success message
@@ -211,22 +215,19 @@ export class AuthStore {
   }
 
   logoutUser() {
-    axios
-      .post(`${BaseDirectories.BASE_API_URL}/user-sign-up`)
-      .then((apiResponse: any) => {
-        // TODO: Add success message
-      })
-      .catch((apiError: any) => {
-        // TODO: Add error message
-      })
-      .finally(() => {
-        // TODO: Add finally
+    this.setSubmitting(true);
+    setTimeout(() => {
+      runInAction(() => {
+        this.setUser(null);
+        this.userContext.logout();
+        toast.success('Logged out successfully!');
+        this.setSubmitting(false);
       });
+    }, 3000);
   }
 
   setUser = (res: any) => {
     this.user = res;
-    this.userContext.login(res);
   };
 
   setLoading = (val: boolean) => {

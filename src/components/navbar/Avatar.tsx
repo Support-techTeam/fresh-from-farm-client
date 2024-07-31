@@ -11,29 +11,15 @@ import {
 import {
   UserCircleIcon,
   ChevronDownIcon,
-  Cog6ToothIcon,
-  InboxArrowDownIcon,
-  LifebuoyIcon,
   PowerIcon,
 } from '@heroicons/react/24/solid';
+import { useStore } from '../../context/StoreContext';
 
 // profile menu component
 const profileMenuItems = [
   {
     label: 'My Profile',
     icon: UserCircleIcon,
-  },
-  {
-    label: 'Edit Profile',
-    icon: Cog6ToothIcon,
-  },
-  {
-    label: 'Inbox',
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: 'Help',
-    icon: LifebuoyIcon,
   },
   {
     label: 'Sign Out',
@@ -43,7 +29,7 @@ const profileMenuItems = [
 
 export function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
+  const { authStore } = useStore();
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
@@ -75,7 +61,16 @@ export function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={() => {
+                closeMenu();
+                if (label === 'Sign Out') {
+                  authStore.logoutUser();
+                  // handle sign out
+                }
+                if (label === 'My Profile') {
+                  // handle edit profile
+                }
+              }}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'

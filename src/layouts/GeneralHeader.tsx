@@ -22,6 +22,7 @@ import Registration from '../pages/authentication/Registration';
 import InputSearchField from '../components/common/InputSearchField';
 import '../styles/general-header.css';
 import { useCart } from '../context/CartContext';
+import { useUser } from '../context/UserContext';
 
 function NavList() {
   return (
@@ -77,6 +78,7 @@ export function GeneralHeader() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const { totalQuantity } = useCart();
+  const { user } = useUser();
   useEffect(() => {
     window.addEventListener(
       'resize',
@@ -119,7 +121,7 @@ export function GeneralHeader() {
             />
           </div>
           <div className="hidden gap-2 lg:flex md:mr-10">
-            {false ? (
+            {user ? (
               <ProfileMenu />
             ) : (
               <IconButton
@@ -192,7 +194,7 @@ export function GeneralHeader() {
                 />
               </div>
               <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden px-2">
-                {false ? (
+                {user ? (
                   <ProfileMenu />
                 ) : (
                   <IconButton
