@@ -4,11 +4,42 @@ import CartMain from '../pages/cart/CartMain';
 import ProductDetails from '../pages/shop/ProductDetails';
 import ShopMain from '../pages/shop/ShopMain';
 import GeneralLayout from './GeneralLayouts';
+import ProtectedRoute from './ProtectedRoute';
 
 const GeneralRoutes = () => {
   return (
     <Routes>
       <Route
+        path="/shop"
+        element={
+          <ProtectedRoute>
+            <GeneralLayout>
+              <ShopMain />
+            </GeneralLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/shop/product/*"
+        element={
+          <ProtectedRoute>
+            <GeneralLayout>
+              <ProductDetails />
+            </GeneralLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/cart"
+        element={
+          <ProtectedRoute>
+            <GeneralLayout>
+              <CartMain />
+            </GeneralLayout>
+          </ProtectedRoute>
+        }
+      />
+      {/* <Route
         path="/shop"
         element={
           <GeneralLayout>
@@ -31,7 +62,7 @@ const GeneralRoutes = () => {
             <CartMain />
           </GeneralLayout>
         }
-      />
+      /> */}
     </Routes>
   );
 };
