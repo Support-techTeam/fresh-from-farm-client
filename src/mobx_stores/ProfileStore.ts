@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { configure, makeAutoObservable, runInAction } from 'mobx';
-import RootStore from './RootStore';
 import axios from 'axios';
+import { RootStore } from './RootStore';
 
 configure({ enforceActions: 'always' });
 
@@ -13,9 +13,9 @@ interface Profile {
 
 export class ProfileStore {
   profile: Profile = {};
-  rootStore: typeof RootStore;
+  rootStore: RootStore;
 
-  constructor(rootStore: typeof RootStore) {
+  constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this);
   }

@@ -32,6 +32,7 @@ import { ProfileMenu } from '../components/navbar/Avatar';
 import Login from '../pages/authentication/Login';
 import Registration from '../pages/authentication/Registration';
 import { useCart } from '../context/CartContext';
+import { useUser } from '../context/UserContext';
 // eslint-disable-next-line
 const navListShopItems = [
   {
@@ -185,6 +186,7 @@ export function HomeHeader() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const { totalQuantity } = useCart();
+  const { user } = useUser();
   useEffect(() => {
     window.addEventListener(
       'resize',
@@ -234,7 +236,7 @@ export function HomeHeader() {
               <MagnifyingGlassIcon className="h-5 w-5" />
             </IconButton>
 
-            {false ? (
+            {user ? (
               <ProfileMenu />
             ) : (
               <IconButton
@@ -282,7 +284,7 @@ export function HomeHeader() {
               <MagnifyingGlassIcon className="h-5 w-5" />
             </IconButton>
 
-            {false ? (
+            {user ? (
               <ProfileMenu />
             ) : (
               <IconButton
