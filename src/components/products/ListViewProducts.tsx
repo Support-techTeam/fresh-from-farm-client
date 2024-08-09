@@ -234,7 +234,7 @@ const ListViewProducts = ({
                                 currency: 'GBP',
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
-                              }).format(0)}
+                              }).format(product.price)}
                         </Typography>
                       </div>
                       <div>

@@ -5,6 +5,7 @@ import React, {
   useEffect,
   ReactNode,
 } from 'react';
+import BaseDirectories from '../base_directory/BaseDirectory';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -35,15 +36,20 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(() => {
-    const savedUser = localStorage.getItem('f3_user_data');
+    const savedUser = localStorage.getItem(
+      `f3_user_data_${BaseDirectories.APP_ENV}`,
+    );
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
   useEffect(() => {
     if (user) {
-      localStorage.setItem('f3_user_data', JSON.stringify(user));
+      localStorage.setItem(
+        `f3_user_data_${BaseDirectories.APP_ENV}`,
+        JSON.stringify(user),
+      );
     } else {
-      localStorage.removeItem('f3_user_data');
+      localStorage.removeItem(`f3_user_data_${BaseDirectories.APP_ENV}`);
     }
   }, [user]);
 

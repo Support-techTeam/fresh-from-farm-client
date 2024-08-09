@@ -154,6 +154,7 @@ const GridViewProducts = ({
       {paginatedProducts.length > 0 ? (
         paginatedProducts.map((product, index) => (
           <Item
+            key={index}
             elevation={0}
             className="relative border border-gray-100 hover:border-[#C0DA71] hover:border-[0.28px] rounded-lg p-0"
           >
@@ -223,7 +224,7 @@ const GridViewProducts = ({
                               currency: 'GBP',
                               maximumFractionDigits: 2,
                               minimumFractionDigits: 2,
-                            }).format(0)}
+                            }).format(Number(product.price))}
                       </dd>
                     </div>
                     <div>

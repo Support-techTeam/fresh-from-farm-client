@@ -6,6 +6,7 @@ import BaseDirectories from '../base_directory/BaseDirectory';
 import { toast } from 'react-toastify';
 import { useUser, UserContextType, UserProvider } from '../context/UserContext';
 import { RootStore } from './RootStore';
+// import apiClient from './apiClient';
 
 configure({ enforceActions: 'always' });
 
@@ -37,6 +38,9 @@ interface verifyData {
 }
 
 export class AuthStore {
+  static refreshToken() {
+    throw new Error('Method not implemented.');
+  }
   authenticated = false;
   loading = false;
   submitting = false;
@@ -224,6 +228,26 @@ export class AuthStore {
         this.setSubmitting(false);
       });
     }, 3000);
+  }
+
+  async refreshToken(): Promise<string | null> {
+    const userData = this.userContext.user;
+    console.debug('refreshToken', userData);
+    return null;
+    // try {
+    //   const response = await apiClient.post('/refresh-token', {
+    //     refreshToken: this.userData?.refreshToken,
+    //   });
+    //   const newToken = response.data.data.accessToken;
+    //   this.setUserData({
+    //     ...this.userData,
+    //     accessToken: newToken,
+    //   });
+    //   return newToken;
+    // } catch (error) {
+    //   this.logout();
+    //   return null;
+    // }
   }
 
   setUser = (res: any) => {
